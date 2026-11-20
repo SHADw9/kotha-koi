@@ -2,25 +2,33 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
-// Signing secrets are kept OUT of the repo in keystore.properties (gitignored).
+// Signing: the project ships a release keystore so CI can produce an APK that
+// keeps updating over previous installs. Repository secrets can override it by
+// writing keystore.properties (gitignored) in the workflow. See README.
+def secretProps = rootProject.file("keystore.properties")
+def repoProps = rootProject.file("release-signing.properties")
+def propsFile = secretProps.exists() ? secretProps : (repoProps.exists() ? repoProps : null)
 def ksProps = new Properties()
-def ksFile = rootProject.file("keystore.properties")
-if (ksFile.exists()) { ksProps.load(new FileInputStream(ksFile)) }
+if (propsFile != null) { propsFile.withInputStream { ksProps.load(it) } }
+def signingStore = ksProps['storeFile'] ? rootProject.file(ksProps['storeFile']) : null
+def hasReleaseSigning = signingStore != null && signingStore.exists()
+def appVersionName = (project.findProperty("appVersionName") ?: "1.0").toString()
+def appVersionCode = (project.findProperty("appVersionCode") ?: "2").toString().toInteger()
 android {
-    namespace 'com.masud.boltepari'
+    namespace 'com.kothakoi.app'
     compileSdk 35
     buildToolsVersion "35.0.0"
     defaultConfig {
-        applicationId "com.masud.boltepari"
+        applicationId "com.kothakoi.app"
         minSdk 24
         targetSdk 34
-        versionCode 2
-        versionName "1.0"
+        versionCode appVersionCode
+        versionName appVersionName
     }
     signingConfigs {
         release {
-            if (ksFile.exists()) {
-                storeFile file(ksProps['storeFile'])
+            if (hasReleaseSigning) {
+                storeFile signingStore
                 storePassword ksProps['storePassword']
                 keyAlias ksProps['keyAlias']
                 keyPassword ksProps['keyPassword']
@@ -30,7 +38,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            if (ksFile.exists()) { signingConfig signingConfigs.release }
+            signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
         }
     }
     compileOptions {

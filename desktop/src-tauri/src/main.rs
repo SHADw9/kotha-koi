@@ -3,5 +3,5 @@
 fn main() {
     tauri::Builder::default()
         .run(tauri::generate_context!())
-        .expect("error while running Bolte Pari");
+        .expect("error while running kotha-koi");
 }

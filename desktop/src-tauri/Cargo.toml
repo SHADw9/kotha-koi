@@ -1,8 +1,7 @@
 [package]
-name = "bolte-pari"
+name = "kotha-koi"
 version = "1.0.0"
-description = "Bolte Pari - Offline English A1 to C2 learning app"
-authors = ["masudinfosec"]
+description = "kotha-koi - Offline English A1 to C2 learning app"
 edition = "2021"
 
 [build-dependencies]

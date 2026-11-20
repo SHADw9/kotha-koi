@@ -3,7 +3,12 @@ android/.gradle/
 android/build/
 android/app/build/
 android/local.properties
+# Private/override signing material is ignored; the public keystore
+# (kotha-koi-release.keystore) is intentionally committed — see README.
 android/keystore.properties
+android/release.keystore
+android/app/release.keystore
+*.jks
 
 # Rust / Tauri build artifacts
 desktop/src-tauri/target/
@@ -11,11 +16,10 @@ desktop/src-tauri/gen/
 
 # misc
 node_modules/
+__pycache__/
+*.pyc
 *.log
 .DS_Store
-
-# keep the prebuilt release APK for distribution
-!android/BoltePari.apk
 
 # stray root screenshots
 /*.png

@@ -1,12 +1,12 @@
-# Privacy Policy — Bolte Pari
+# Privacy Policy — kotha-koi
 
 **Effective date:** 2026-08-29
 
-Bolte Pari ("the app", "we", "us") is an offline English-learning application
-created by an independent author. This Privacy Policy explains what information
-is and is not handled when you use the app on Android, Windows, or Linux.
+kotha-koi ("the app", "we", "us") is an offline English-learning application.
+This Privacy Policy explains what information is and is not handled when you use
+the app on Android, Windows, Linux, or the web.
 
-We designed Bolte Pari to work without accounts and without a server. Your
+We designed kotha-koi to work without accounts and without a server. Your
 learning content and your progress stay on your own device. The only third-party
 data collection in the app comes from Google AdMob, which is shown **only in the
 Android version**.
@@ -32,9 +32,9 @@ The one exception is advertising on Android, described in the next section.
 
 ## Advertising & AdMob
 
-The **Android version** of Bolte Pari displays ads through **Google AdMob**,
-Google's mobile advertising service. The **Windows and Linux versions do not
-contain ads** and do not include the AdMob component.
+The **Android version** of kotha-koi displays ads through **Google AdMob**,
+Google's mobile advertising service. The **Windows, Linux and web versions do
+not contain ads** and do not include the AdMob component.
 
 To serve ads, the AdMob SDK (operated by Google) may collect and process
 standard advertising data, which can include:
@@ -58,16 +58,15 @@ policies:
 
 ### Consent for users in the EEA, UK, and Switzerland
 
-For users located in the European Economic Area, the United Kingdom, and
-Switzerland, the Android app uses **Google's User Messaging Platform (UMP)** to
-present a consent form before personalized ads are used. Your choice on that form
-determines whether Google may use your data for personalized advertising or only
-for non-personalized (contextual) ads. You can change or withdraw your consent at
-any time from within the app where the consent option is offered.
+If you publish the Android build in regions that require advertising consent,
+configure Google's consent tooling in your AdMob account before enabling
+personalized ads. Your choice in that form determines whether Google may use
+your data for personalized advertising or only for non-personalized
+(contextual) ads.
 
 ## Children's Privacy
 
-Bolte Pari is intended for users **aged 13 and older**. It is not directed to
+kotha-koi is intended for users **aged 13 and older**. It is not directed to
 children under 13, and we do not knowingly collect personal information from
 children under 13. Because the Android version shows AdMob ads, it is not
 designed or configured as a "made for families" / child-directed app. If you are
@@ -89,10 +88,10 @@ uninstall the app to stop all data processing.
 
 - **Ads (Android):** You can limit ad tracking by resetting or deleting your
   Advertising ID in **Android Settings → Privacy → Ads** (menu names vary by
-  device). In the EEA/UK/Switzerland you can also change your consent choice
-  through the in-app consent option.
-- **Ad-free desktop:** The Windows and Linux versions contain no ads and no
-  AdMob component at all.
+  device). Where Google's consent form is configured, you can also change your
+  choice through that form.
+- **Ad-free desktop and web:** The Windows, Linux and web versions contain no
+  ads and no AdMob component at all.
 - **Your progress:** You can clear your progress by clearing the app's local
   data in your device/OS settings, or by uninstalling the app.
 
@@ -106,6 +105,4 @@ of the app after an update means you accept the revised policy.
 ## Contact
 
 If you have questions about this Privacy Policy or the app's data practices,
-contact the author:
-
-**Email:** socialmasud24@gmail.com
+open an issue in the repository where this project is hosted.

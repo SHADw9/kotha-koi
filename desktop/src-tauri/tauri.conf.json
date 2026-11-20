@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Bolte Pari",
+  "productName": "kotha-koi",
   "version": "1.0.0",
-  "identifier": "com.masud.boltepari.desktop",
+  "identifier": "com.kothakoi.desktop",
   "build": {
     "frontendDist": "../dist"
   },
@@ -10,7 +10,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "Bolte Pari - English A1 to C2",
+        "title": "kotha-koi — English A1 → C2",
         "width": 1024,
         "height": 800,
         "minWidth": 360,
@@ -31,6 +31,6 @@
     ],
     "category": "Education",
     "shortDescription": "Offline English A1-C2 learning",
-    "longDescription": "Bolte Pari - learn English from A1 to C2 completely offline: 2100+ practice questions, interview drill, text-to-speech, progress tracking."
+    "longDescription": "kotha-koi - learn English from A1 to C2 completely offline: 119 units, 1,400+ practice questions, interview drill, text-to-speech, themes, and progress tracking."
   }
 }

@@ -1,4 +1,4 @@
-package com.masud.boltepari
+package com.kothakoi.app
 
 import android.app.Activity
 import android.content.ContentValues
@@ -169,7 +169,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
         @JavascriptInterface
         fun speak(text: String) {
             if (!ttsReady) return
-            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "boltepari")
+            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "kothakoi")
         }
 
         @JavascriptInterface
