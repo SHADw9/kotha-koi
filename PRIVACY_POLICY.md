@@ -1,15 +1,13 @@
 # Privacy Policy — kotha-koi
 
-**Effective date:** 2026-08-29
+**Effective date:** 2026-11-20
 
 kotha-koi ("the app", "we", "us") is an offline English-learning application.
 This Privacy Policy explains what information is and is not handled when you use
 the app on Android, Windows, Linux, or the web.
 
 We designed kotha-koi to work without accounts and without a server. Your
-learning content and your progress stay on your own device. The only third-party
-data collection in the app comes from Google AdMob, which is shown **only in the
-Android version**.
+learning content and your progress stay on your own device.
 
 ---
 
@@ -23,56 +21,40 @@ Android version**.
   upload your learning content, answers, scores, streaks, or progress anywhere.
 - We do not run our own analytics, tracking, telemetry, or crash-reporting that
   identifies you.
+- The app contains **no advertising SDK**, no AdMob, and no advertising
+  identifiers.
 
 All learning material (units, questions, explanations, model answers) ships
 inside the app, and everything you generate by using it (progress, results,
 streak, settings) is written only to local storage on your device.
 
-The one exception is advertising on Android, described in the next section.
+## AI Question Generation (Optional)
 
-## Advertising & AdMob
+The Practice tab includes an optional AI question generator. It runs **only when
+you open it and tap Generate**, and it requires **your own Gemini API key** from
+Google AI Studio. The app does not provide or share any API key.
 
-The **Android version** of kotha-koi displays ads through **Google AdMob**,
-Google's mobile advertising service. The **Windows, Linux and web versions do
-not contain ads** and do not include the AdMob component.
+When you use this feature:
 
-To serve ads, the AdMob SDK (operated by Google) may collect and process
-standard advertising data, which can include:
+- Your API key is stored locally on your device (only if you leave "Remember the
+  key on this device" checked) and is sent **only** to Google's Gemini API at
+  `generativelanguage.googleapis.com`.
+- The topic and practice settings you enter, and the prompt needed to generate
+  questions, are sent to Google so it can return the requested content.
+- Your lessons, answers, scores, streaks, and other progress are **not** sent.
+- Google's handling of API requests is governed by Google's own policies:
+  - **Google Privacy Policy:** https://policies.google.com/privacy
+  - **Gemini API terms:** https://ai.google.dev/gemini-api/terms
 
-- your device's **advertising identifier** (Android Advertising ID / App Set ID),
-- your device's **IP address** and general device information (model, OS version,
-  language, coarse region),
-- **ad interaction data**, such as ads shown, taps, and diagnostics used to serve
-  ads and prevent fraud.
-
-This processing is performed by Google, not by us. We do not receive your
-personal data from Google; we only receive aggregate, non-identifying reporting
-about ad performance. Google's handling of this data is governed by Google's own
-policies:
-
-- **How Google uses information from sites or apps that use its services:**
-  https://policies.google.com/technologies/partner-sites
-- **Google Privacy Policy:** https://policies.google.com/privacy
-- **AdMob & AdSense data collection:**
-  https://support.google.com/admob/answer/6128543
-
-### Consent for users in the EEA, UK, and Switzerland
-
-If you publish the Android build in regions that require advertising consent,
-configure Google's consent tooling in your AdMob account before enabling
-personalized ads. Your choice in that form determines whether Google may use
-your data for personalized advertising or only for non-personalized
-(contextual) ads.
+You can avoid all network access by not using the AI generator. You can remove a
+saved key at any time with **Remove key** in the AI sheet, or by clearing the
+app's local data.
 
 ## Children's Privacy
 
 kotha-koi is intended for users **aged 13 and older**. It is not directed to
 children under 13, and we do not knowingly collect personal information from
-children under 13. Because the Android version shows AdMob ads, it is not
-designed or configured as a "made for families" / child-directed app. If you are
-a parent or guardian and believe a child under 13 has used the app, you can
-reset or clear the device advertising identifier in the device settings and
-uninstall the app to stop all data processing.
+children under 13. The app has no accounts, advertising, or analytics.
 
 ## Data Storage
 
@@ -86,12 +68,8 @@ uninstall the app to stop all data processing.
 
 ## Your Choices
 
-- **Ads (Android):** You can limit ad tracking by resetting or deleting your
-  Advertising ID in **Android Settings → Privacy → Ads** (menu names vary by
-  device). Where Google's consent form is configured, you can also change your
-  choice through that form.
-- **Ad-free desktop and web:** The Windows, Linux and web versions contain no
-  ads and no AdMob component at all.
+- **AI generation:** Use it only when you choose to. Leave the key field empty or
+  remove the saved key to keep the app completely offline.
 - **Your progress:** You can clear your progress by clearing the app's local
   data in your device/OS settings, or by uninstalling the app.
 

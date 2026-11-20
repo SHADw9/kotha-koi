@@ -14,6 +14,22 @@ themes and a floating dock — all working without an internet connection.
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/home-light.png" width="300" alt="Home screen in light mode"><br><sub>Home · light</sub></td>
+    <td align="center"><img src="docs/screenshots/practice-light.png" width="300" alt="Practice screen in light mode"><br><sub>Practice · light</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/home-dark.png" width="300" alt="Home screen in dark mode"><br><sub>Home · dark</sub></td>
+    <td align="center"><img src="docs/screenshots/practice-dark.png" width="300" alt="Practice screen in dark mode"><br><sub>Practice · dark</sub></td>
+  </tr>
+</table>
+
+Light and dark appearance both work with every colour theme — switch them any
+time from the palette button in the top bar.
+
 ## What's inside
 
 | Feature | Description |
@@ -22,12 +38,19 @@ themes and a floating dock — all working without an internet connection.
 | **A1 → C2 path** | A complete CEFR-aligned journey across 119 units and 23 chapters. |
 | **1,428 practice questions** | A large question bank with explanations and retry attempts. |
 | **Interview drill** | Practice common interview questions with model answers. |
+| **Irregular verbs** | Searchable reference of 204 irregular verbs with base, past and past participle forms, Bangla meanings from the word bank, and tap-to-listen. |
+| **AI questions (optional)** | Bring your own Gemini API key to generate level-based (A1–C2) MCQs, IELTS-format Speaking, Writing and Reading practice with model answers, plus fresh sentences and conversations on any Sentence Bank topic. Generated sets are saved on the device and reopen offline. |
 | **Listening & pronunciation** | Platform text-to-speech plus focused pronunciation drills. |
 | **Offline dictionary** | 103,646 English words with Bangla meanings, instant search, word of the day and recent lookups. |
 | **CEFR → IELTS word bank** | 4,954 Oxford 3000/5000 words (A1–C1), the 570-word Academic Word List and 2,632 phrases — with multiple senses, English glosses, learned ticks, progress and 10-word flashcard sessions. |
 | **Progress & streaks** | Daily ticks, scores, completion and a 14-day view. |
-| **Eight themes** | Vermilion, Paper, Night, Cobalt, Sepia, Bagan, Rose and Ink — plus an Auto mode. |
+| **Eight themes** | Vermilion, Paper, Night, Cobalt, Sepia, Bagan, Rose and Ink — each with a light and a dark look, plus Auto mode. |
 | **No account needed** | Open the app and start. |
+
+> The only optional online feature is AI question generation. It runs only when
+> you tap **Generate** and uses your own Gemini API key; lessons, dictionary,
+> word bank and progress never need a connection. Anything the AI generates is
+> saved on your device and can be reopened later without the internet.
 
 ### Themes
 
@@ -41,9 +64,12 @@ themes and a floating dock — all working without an internet connection.
 | **Bagan** | Soft sage and forest green. |
 | **Rose** | Soft blush, deep burgundy and warm clay. |
 | **Ink** | High-contrast warm white, black and vermilion. |
-| **Auto** | Follows your device's light/dark setting. |
+| **Auto** | Default accent; follows your device's light/dark setting. |
 
-Open the palette button in the top bar (or **Progress → About**) to switch.
+Open the palette button in the top bar (or **Progress → About**) to pick a
+colour theme and set **Appearance** to Auto, Light or Dark. Appearance is
+independent of the colour theme, so every theme has both a light and a dark
+version.
 
 ---
 
@@ -51,8 +77,7 @@ Open the palette button in the top bar (or **Progress → About**) to switch.
 
 kotha-koi runs on **Android**, **Windows**, **Linux**, and the **web**.
 
-- The Android build shows Google AdMob ads.
-- The desktop and web builds are ad-free.
+- All builds are ad-free: no ad SDK, banners, interstitials, or rewarded videos.
 
 Download the latest build from
 [**Releases**](../../releases/latest).
@@ -183,15 +208,11 @@ Android needs the same key for every update, so back it up if you rotate. If you
 installed an older build signed with a different key, uninstall it once before
 installing the new APK.
 
-The Android shell currently uses Google's **test AdMob IDs**. Replace them in
-`android/app/src/main/AndroidManifest.xml` and `MainActivity.kt` before
-publishing to a store or running live ads.
-
 ---
 
 ## Tech
 
-- **Android:** WebView shell (Kotlin) with AdMob and native text-to-speech.
+- **Android:** WebView shell (Kotlin) with native text-to-speech.
 - **Desktop:** Tauri 2 wrapping the same web UI.
 - **Web:** a single static HTML/CSS/JS app; lessons in `data.js`, the dictionary
   in `dict.js`, and the word bank in `vocab.js` (both loaded only when their tab
@@ -235,8 +256,18 @@ kotha-koi uses a split license:
 ## Privacy
 
 kotha-koi collects no personal information itself and has no user accounts.
-The Android build shows Google AdMob ads; desktop and web builds are ad-free.
+All builds are ad-free. The only optional network feature is AI question
+generation, which uses a Gemini API key you supply and store locally.
 See [`PRIVACY_POLICY.md`](PRIVACY_POLICY.md).
+
+---
+
+## Author
+
+Built by **MD Fahad Alam**.
+
+- GitHub: [github.com/SHADw9](https://github.com/SHADw9)
+- Instagram: [@mdfahadalam9](https://instagram.com/mdfahadalam9)
 
 ---
 

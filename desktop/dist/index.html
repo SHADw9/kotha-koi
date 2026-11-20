@@ -4,20 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF" id="themeColor">
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwRjZCNTciLz48cGF0aCBkPSJNMTQgMTlhNiA2IDAgMCAxIDYtNmgyNGE2IDYgMCAwIDEgNiA2djE0YTYgNiAwIDAgMS02IDZIMzFsLTkgOHYtOGgtMmE2IDYgMCAwIDEtNi02WiIgZmlsbD0iI0ZGRjlFRSIvPjxjaXJjbGUgY3g9IjQ2IiBjeT0iNDkiIHI9IjUiIGZpbGw9IiNDOTZBM0IiLz48L3N2Zz4=">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxyZWN0IHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIHJ4PSIyMjgiIGZpbGw9IiMwQjBCMEMiLz48cmVjdCB4PSIxNzYiIHk9IjE5NiIgd2lkdGg9IjY3MiIgaGVpZ2h0PSI1MzIiIHJ4PSIxNDgiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNIDMzMCA3MDAgQyAzMjIgNzYyIDMwNCA4MjAgMjg2IDg2NiBDIDM1MiA4NDIgNDIwIDgxMiA0ODYgNzI4IFoiIGZpbGw9IiNGRkZGRkYiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMwQjBCMEMiIHN0cm9rZS13aWR0aD0iMTA2IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0gNDIwIDMzNCBMIDQyMCA2MTQiLz48cGF0aCBkPSJNIDQyMCA0NzQgTCA2MDYgMzM0Ii8+PHBhdGggZD0iTSA0MjAgNDc0IEwgNjA2IDYxNCIvPjwvZz48Y2lyY2xlIGN4PSI3NjQiIGN5PSI3NTYiIHI9IjY2IiBmaWxsPSIjRDcyNjNEIi8+PC9zdmc+">
 <meta name="description" content="kotha-koi — offline English from A1 to IELTS, with a 100,000-word English–Bangla dictionary and CEFR word bank.">
 <title>kotha-koi — English A1 → IELTS</title>
 <script>
   (function(){
     try{
       var pref=localStorage.getItem('kk_theme')||'vermilion';
+      var modePref=localStorage.getItem('kk_mode')||'auto';
       var dark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme=pref==='auto'?(dark?'night':'vermilion'):pref;
+      var theme=pref==='auto'?'vermilion':pref;
+      var mode=modePref==='auto'?(dark?'dark':'light'):(modePref==='dark'?'dark':'light');
       document.documentElement.setAttribute('data-theme',theme);
-      document.documentElement.style.colorScheme=(theme==='night')?'dark':'light';
-      var colors={vermilion:'#FFFFFF',paper:'#F4EFE4',night:'#111512',sepia:'#EFE3CF',bagan:'#E8EFE4',cobalt:'#F7F9FC',rose:'#FFF7F7',ink:'#F1F0EB'};
+      document.documentElement.setAttribute('data-mode',mode);
+      document.documentElement.style.colorScheme=mode;
+      var colors={vermilion:'#FFFFFF',paper:'#F4EFE4',night:'#F3F6F2',sepia:'#EFE3CF',bagan:'#E8EFE4',cobalt:'#F7F9FC',rose:'#FFF7F7',ink:'#F1F0EB'};
       var m=document.querySelector('meta[name="theme-color"]');
-      if(m&&colors[theme]) m.setAttribute('content',colors[theme]);
+      if(m) m.setAttribute('content',mode==='dark'?'#101113':(colors[theme]||'#FFFFFF'));
     }catch(e){}
   })();
 </script>
@@ -131,6 +134,88 @@
     --scrim:rgba(15,15,13,.48); --on-brand:#FFFDF6; --on-accent:#FFF9F5;
     color-scheme:light;
   }
+
+  /* =========================================================
+     Appearance — Light / Dark works on top of every colour theme
+     ========================================================= */
+  html[data-mode="dark"]{
+    --bg:#101113; --surface:#16181B; --card:#1B1E21; --card2:#24272B;
+    --fg:#ECEDEE; --muted:#9DA1A8; --border:#2D3035;
+    --right:#6FD3A0; --right-soft:#173024; --wrong:#F18F8F; --wrong-soft:#3A1F1F;
+    --hard:#E7C06E; --hard-soft:#372C15;
+    --shadow:0 1px 2px rgba(0,0,0,.30), 0 16px 36px -24px rgba(0,0,0,.85);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.36), 0 30px 70px -34px rgba(0,0,0,.95);
+    --header:rgba(16,17,19,.84); --nav:rgba(22,24,27,.95);
+    --scrim:rgba(0,0,0,.62);
+    color-scheme:dark;
+  }
+  /* Night keeps its own charcoal-on-mint palette when dark is selected */
+  html[data-mode="dark"][data-theme="night"]{
+    --brand:#7BD5B1; --brand2:#4DB891; --brand-ink:#DFF8EC; --brand-soft:#1B3A2F;
+    --accent:#F0A06E; --accent-soft:#3A281F; --flame:#F0A06E;
+    --bg:#111512; --surface:#161B17; --card:#1B221D; --card2:#242C26;
+    --fg:#EEEBE3; --muted:#9BA49B; --border:#2D372F;
+    --right:#78D6A5; --right-soft:#193429; --wrong:#F08B7E; --wrong-soft:#39201D;
+    --hard:#E9B55F; --hard-soft:#392D19;
+    --shadow:0 1px 2px rgba(0,0,0,.24), 0 16px 36px -22px rgba(0,0,0,.8);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.3), 0 30px 70px -32px rgba(0,0,0,.9);
+    --header:rgba(17,21,18,.82); --nav:rgba(22,27,23,.95);
+    --scrim:rgba(0,0,0,.58); --on-brand:#08251C; --on-accent:#2A1509;
+    color-scheme:dark;
+  }
+  html[data-mode="dark"][data-theme="vermilion"]{
+    --brand:#FF6B7D; --brand2:#FF8E9C; --brand-ink:#FFD9DE; --brand-soft:#3A1419;
+    --accent:#E8E8EA; --accent-soft:#2A2A2D; --flame:#FF6B7D;
+    --on-brand:#2A0006; --on-accent:#101113;
+  }
+  html[data-mode="dark"][data-theme="paper"]{
+    --brand:#6FD3B4; --brand2:#8FE3C8; --brand-ink:#DDF7EC; --brand-soft:#123128;
+    --accent:#F0A97D; --accent-soft:#3A2418; --flame:#F0A97D;
+    --on-brand:#04241B; --on-accent:#2A1206;
+  }
+  html[data-mode="dark"][data-theme="cobalt"]{
+    --brand:#8FAEFF; --brand2:#A9C2FF; --brand-ink:#E2EBFF; --brand-soft:#16224A;
+    --accent:#5FD3C6; --accent-soft:#0F3330; --flame:#8FAEFF;
+    --on-brand:#071433; --on-accent:#04211F;
+  }
+  html[data-mode="dark"][data-theme="rose"]{
+    --brand:#FF93A8; --brand2:#FFB1C0; --brand-ink:#FFE0E6; --brand-soft:#3B1220;
+    --accent:#E7A97F; --accent-soft:#3A2114; --flame:#FF93A8;
+    --on-brand:#33020D; --on-accent:#2A1206;
+  }
+  html[data-mode="dark"][data-theme="sepia"]{
+    --brand:#E0A57C; --brand2:#EEBE9C; --brand-ink:#FBE6D5; --brand-soft:#3A2517;
+    --accent:#A9C49A; --accent-soft:#25321F; --flame:#E0A57C;
+    --on-brand:#2A1509; --on-accent:#14210F;
+  }
+  html[data-mode="dark"][data-theme="bagan"]{
+    --brand:#93D6AA; --brand2:#B2E5C3; --brand-ink:#E0F7E7; --brand-soft:#16311F;
+    --accent:#E7AE74; --accent-soft:#3A2712; --flame:#93D6AA;
+    --on-brand:#082414; --on-accent:#2A1806;
+  }
+  html[data-mode="dark"][data-theme="ink"]{
+    --brand:#EDEAE0; --brand2:#D8D4C8; --brand-ink:#FFFDF6; --brand-soft:#2A2A26;
+    --accent:#FF8A6B; --accent-soft:#3A1E14; --flame:#FF8A6B;
+    --on-brand:#14140F; --on-accent:#2A0D05;
+  }
+  /* neutral hero cards stay dark instead of inverting to white */
+  html[data-mode="dark"] .hero{background:var(--card2);color:var(--fg);border:1px solid var(--border)}
+  html[data-mode="dark"] .hero.ai{background:linear-gradient(135deg,var(--brand),var(--brand2));color:var(--on-brand);border:none}
+  /* Night in light mode becomes a warm mint-on-paper theme */
+  html[data-mode="light"][data-theme="night"]{
+    --brand:#0F6B57; --brand2:#2E8F70; --brand-ink:#073F34; --brand-soft:#DCEBE3;
+    --accent:#B4693A; --accent-soft:#F3E2D4; --flame:#2E8F70;
+    --bg:#F3F6F2; --surface:#FAFCF9; --card:#FFFFFF; --card2:#E9F0E8;
+    --fg:#14201A; --muted:#5B6B60; --border:#D8E4D9;
+    --right:#1D7A4B; --right-soft:#DCEEE2; --wrong:#B34134; --wrong-soft:#F5DDD9;
+    --hard:#9A6418; --hard-soft:#F3E5CB;
+    --shadow:0 1px 2px rgba(20,40,30,.05), 0 12px 30px -20px rgba(20,40,30,.35);
+    --shadow-lg:0 2px 4px rgba(20,40,30,.06), 0 26px 60px -30px rgba(20,40,30,.4);
+    --header:rgba(243,246,242,.86); --nav:rgba(250,252,249,.96);
+    --scrim:rgba(20,32,26,.45); --on-brand:#FFFFFF; --on-accent:#FFF8F2;
+    color-scheme:light;
+  }
+
 
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -275,9 +360,6 @@
     background:var(--brand-soft);color:var(--brand);line-height:1.35}
   .rev{font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:999px;
     background:var(--hard-soft);color:var(--hard);line-height:1.35}
-  .lock{font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:999px;
-    background:var(--card2);color:var(--muted);line-height:1.35}
-  .urow.locked{opacity:.62}
   .ttsb{background:none;border:none;cursor:pointer;font-size:.95rem;padding:0;opacity:.7;
     width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
     line-height:1;vertical-align:middle;color:var(--brand);transition:opacity .15s,transform .15s,background .15s}
@@ -364,6 +446,8 @@
     font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:border-color .18s,transform .15s}
   .ablink:hover{border-color:var(--brand);transform:translateY(-1px)}
   .abnote{font-size:.79rem;color:var(--muted);margin-top:14px;line-height:1.6}
+  .abauthor{margin-top:14px;padding-top:13px;border-top:1px solid var(--border)}
+  .abauthor .ablinks{margin-top:8px}
   .abnote b{color:var(--fg)}
 
   /* ===== practice tab ===== */
@@ -510,6 +594,84 @@
   .drillans{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--right);
     border-radius:12px;padding:11px 13px;margin:12px 0;text-align:left;font-size:.92rem;line-height:1.7}
 
+  /* ===== AI question generator ===== */
+  .aisec{margin-top:13px}
+  .ailabel{display:block;font-size:.71rem;font-weight:800;color:var(--muted);
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+  .aiinputrow{display:flex;gap:7px}
+  .aiinput{flex:1;min-width:0;border:1.5px solid var(--border);background:var(--surface);
+    color:var(--fg);border-radius:12px;padding:11px 13px;font-family:inherit;font-size:.88rem;line-height:1.4}
+  .aiinput:focus{outline:none;border-color:var(--brand)}
+  .aikeybtn{flex:none;border:1.5px solid var(--border);background:var(--card2);color:var(--fg);
+    border-radius:12px;padding:0 13px;font-family:inherit;font-weight:800;font-size:.76rem;cursor:pointer}
+  .aikeybtn:hover{border-color:var(--brand)}
+  .aihint{font-size:.7rem;color:var(--muted);line-height:1.55;margin:7px 0 0}
+  .aihint b{color:var(--fg)}
+  .airemember{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:.79rem;color:var(--muted)}
+  .airemember input{width:17px;height:17px;accent-color:var(--brand);flex:none}
+  .aiforget{margin-left:auto;background:none;border:none;color:var(--brand);font-family:inherit;
+    font-size:.76rem;font-weight:800;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:2px}
+  .aiseg{margin:0}
+  .aiseg button{padding:11px 4px;min-height:42px;font-size:.83rem}
+  .aichips{display:flex;gap:6px;flex-wrap:wrap}
+  .aichip{border:1.5px solid var(--border);background:var(--card2);color:var(--fg);
+    border-radius:10px;padding:8px 13px;min-height:38px;font-family:inherit;font-weight:800;
+    font-size:.8rem;cursor:pointer;transition:border-color .16s,background .16s,color .16s}
+  .aichip:hover{border-color:var(--brand)}
+  .aichip.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+  .aigen{width:100%;margin-top:16px;min-height:48px}
+  .aigen[disabled]{opacity:.65;cursor:default;transform:none}
+  .aistatus{display:none;margin-top:10px;border-radius:12px;padding:10px 12px;font-size:.8rem;
+    line-height:1.6;background:var(--brand-soft);color:var(--brand)}
+  .aistatus.show{display:block}
+  .aistatus.bad{background:var(--wrong-soft);color:var(--wrong)}
+  .aiwrap{max-width:720px;margin:0 auto}
+  .aihead{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin:14px auto 12px}
+  .aikicker{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--brand)}
+  .aititle{font-size:1.08rem;font-weight:800;margin:2px 0 0;letter-spacing:-.01em}
+  .ainote{margin:0 auto 12px;font-size:.73rem;color:var(--muted);line-height:1.55;
+    display:flex;gap:5px;align-items:flex-start}
+  .ainote .ico{flex:none;margin-top:1px;color:var(--hard)}
+  .aicard{margin:0 auto 11px;background:var(--card);border:1px solid var(--border);
+    border-radius:18px;padding:15px 16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .aicard .aiprompt{font-weight:700;font-size:.97rem;line-height:1.6;margin:6px 0 0}
+  .aibullets{margin:9px 0 0;padding-left:20px;font-size:.9rem;line-height:1.7}
+  .aibullets li{margin:2px 0}
+  .aifollow{margin-top:8px}
+  .aifollow+.aifollow{border-top:1px dashed var(--border);padding-top:8px}
+  .aifollow .en{font-size:.93rem;font-weight:600;line-height:1.6}
+  .aipassage{margin:0 auto 12px;background:var(--card2);border:1px solid var(--border);
+    border-radius:16px;padding:12px 15px}
+  .aipassage summary{cursor:pointer;font-weight:800;font-size:.86rem;color:var(--brand);line-height:1.5}
+  .aipassage p{font-size:.89rem;line-height:1.75;margin:9px 0 0;white-space:pre-wrap}
+  .aidetails{margin-top:6px}
+  .aidetails summary{cursor:pointer;font-size:.8rem;font-weight:800;color:var(--brand);
+    padding:8px 2px;list-style:none;display:flex;align-items:center;gap:5px}
+  .aidetails summary::-webkit-details-marker{display:none}
+  .aidetails summary::before{content:"▸";font-size:.85rem;transition:transform .18s}
+  .aidetails[open] summary::before{transform:rotate(90deg)}
+  .aisample{background:var(--card2);border-left:3px solid var(--right);border-radius:0 12px 12px 0;
+    padding:10px 13px;margin:4px 0 10px;font-size:.88rem;line-height:1.72;white-space:pre-wrap}
+  .aiphrases{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .aiphrases span{background:var(--brand-soft);color:var(--brand);border-radius:999px;
+    padding:4px 10px;font-size:.76rem;font-weight:700}
+  .aifoot{margin:16px auto 4px;display:flex;gap:8px;flex-wrap:wrap}
+  .savedn{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;
+    margin-left:6px;border-radius:999px;background:var(--brand-soft);color:var(--brand-ink);font-size:.68rem;font-weight:800}
+  .savedn.hidden{display:none}
+  .savedrow{display:flex;align-items:stretch;gap:8px;margin-top:10px}
+  .savedopen{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;text-align:left;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:11px 13px;
+    font-family:inherit;color:var(--fg);cursor:pointer;transition:border-color .16s}
+  .savedopen:hover{border-color:var(--brand)}
+  .savedkind{font-size:.63rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+  .savedtitle{font-weight:800;font-size:.9rem;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .saveddate{font-size:.68rem;color:var(--muted)}
+  .saveddel{width:44px;border:1px solid var(--border);border-radius:14px;background:var(--card);
+    color:var(--muted);font-size:1.1rem;cursor:pointer;font-family:inherit;transition:border-color .16s,color .16s}
+  .saveddel:hover{border-color:var(--wrong);color:var(--wrong)}
+  .savedempty{padding:22px 6px;text-align:center;color:var(--muted);font-size:.85rem;line-height:1.6}
+
   /* ===== theme sheet, toast & motion ===== */
   .sheet-backdrop{position:fixed;inset:0;z-index:100;background:var(--scrim);
     display:flex;align-items:flex-end;justify-content:center;
@@ -533,6 +695,13 @@
   .iconclose:hover{border-color:var(--brand);background:var(--surface)}
   .theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
   @media(min-width:520px){.theme-grid{grid-template-columns:repeat(3,1fr)}}
+  .mode-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:16px}
+  .mode-label{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .mode-hint{font-size:.68rem;color:var(--muted);text-align:right;line-height:1.4}
+  .mode-seg{margin:8px 0 2px}
+  .mode-seg button{display:flex;align-items:center;justify-content:center;gap:6px;
+    min-height:42px;padding:10px 6px;font-size:.86rem}
+  .mode-seg .ico{width:15px;height:15px}
 
   .theme-option{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:15px;min-height:100px;
     border:1.5px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;
@@ -586,7 +755,7 @@
   .ring .ico{width:17px;height:17px;stroke-width:2}
   .chev .ico{width:18px;height:18px}
   .usub .ico{width:13px;height:13px;opacity:.75}
-  .rev .ico,.lock .ico{width:12px;height:12px;vertical-align:-.08em}
+  .rev .ico{width:12px;height:12px;vertical-align:-.08em}
   .notecard .ico,.balline .ico{width:15px;height:15px}
   .lbox h4 .ico{width:18px;height:18px;vertical-align:-.15em}
   .drillbox h3 .ico{width:20px;height:20px;vertical-align:-.16em}
@@ -740,6 +909,106 @@
   .s-en{display:block;font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:3px}
   .dictwordmeta{font-size:.7rem;color:var(--muted);font-weight:700;margin-top:3px}
   .dictsheet .sheet-head{align-items:flex-start}
+  /* ===== irregular verbs reference ===== */
+  .hero.ref{background:var(--card);color:var(--fg);border:1px solid var(--border)}
+  .hero.ref h3{color:var(--fg)}
+  .hero.ref h3 .ico{color:var(--brand)}
+  .hero.ref p{opacity:1;color:var(--muted)}
+  html[data-mode="dark"] .hero.ref{background:var(--card);border-color:var(--border)}
+  .irhead,.irrow{display:grid;grid-template-columns:1.15fr 1fr 1fr 22px;gap:8px;align-items:center}
+  .irhead{padding:0 10px 7px;font-size:.63rem;font-weight:800;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--muted)}
+  .irrow{width:100%;background:var(--card2);border:1px solid transparent;border-radius:12px;
+    padding:9px 10px;margin-bottom:7px;cursor:pointer;font-family:inherit;color:var(--fg);
+    text-align:left;transition:border-color .16s,background .16s;row-gap:4px}
+  .irrow:hover,.irrow:focus-visible{border-color:var(--brand);outline:none}
+  .irb{font-weight:800;font-size:.92rem;line-height:1.35}
+  .irp,.irpp{font-size:.83rem;line-height:1.35;color:var(--muted);overflow-wrap:anywhere}
+  .irrow .ico{grid-column:4;grid-row:1;width:15px;height:15px;color:var(--brand);opacity:.75}
+  .irbn{grid-column:1/-1;grid-row:2;font-size:.8rem;line-height:1.5;color:var(--fg);opacity:.78}
+  .ircount{margin:10px 0 0;font-size:.73rem;color:var(--muted)}
+  .irnone{padding:26px 10px;text-align:center;color:var(--muted);font-size:.86rem}
+  .irnote{margin-top:12px;font-size:.72rem;color:var(--muted);line-height:1.55}
+
+  /* ===== AI practice (Gemini, bring your own key) ===== */
+  .hero.ai{background:linear-gradient(135deg,var(--brand),var(--brand2));color:var(--on-brand)}
+  .airow{display:flex;gap:10px;align-items:stretch}
+  .airow .hero{flex:1 1 auto;min-width:0}
+  .airow .hero.aisent{flex:1 1 auto;display:flex;align-items:center;padding:12px 14px}
+  .airow .hero.aisent h3{font-size:.92rem;line-height:1.25;margin:0}
+  .aiside{display:flex;flex-direction:column;gap:10px;flex:0 0 136px;margin-top:14px}
+  .aiside .hero{margin-top:0}
+  @media(max-width:390px){
+    .airow{flex-direction:column}
+    .aiside{flex:1 1 auto;flex-direction:row;margin-top:0}
+    .aiside .hero{margin-top:0}
+  }
+  .aibadge{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    background:rgba(255,255,255,.2);color:inherit;border-radius:999px;padding:2px 8px;vertical-align:2px;margin-left:4px}
+  .aibox{text-align:left}
+  .aihead{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}
+  .aihead h3{margin:0;font-size:1.12rem;line-height:1.3}
+  .aihead p{margin:2px 0 0;font-size:.78rem;color:var(--muted);line-height:1.5}
+  .aiicon{flex:none;width:42px;height:42px;border-radius:13px;background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center}
+  .aiicon .ico{width:22px;height:22px}
+  .aifield{margin:16px 0 0}
+  .aifield>.lbl{display:block;font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 7px}
+  .aichips{display:flex;flex-wrap:wrap;gap:7px}
+  .aichip{border:1.5px solid var(--border);background:var(--card2);color:var(--fg);font-family:inherit;
+    font-size:.79rem;font-weight:700;padding:8px 12px;border-radius:999px;cursor:pointer;min-height:38px;
+    transition:border-color .15s,background .15s,color .15s,transform .15s}
+  .aichip:hover{border-color:var(--brand);color:var(--brand)}
+  .aichip:active{transform:scale(.97)}
+  .aichip.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+  .aichip small{font-weight:700;opacity:.7;margin-left:3px;font-size:.68rem}
+  .aikeyrow{display:flex;gap:8px}
+  .aiinput{flex:1;min-width:0;background:var(--card2);border:1.5px solid var(--border);border-radius:12px;
+    padding:11px 13px;color:var(--fg);font-family:inherit;font-size:.85rem;outline:none}
+  .aiinput:focus{border-color:var(--brand);background:var(--card)}
+  .aiinput::placeholder{color:var(--muted);opacity:.75}
+  .aishow{flex:none;width:44px;border:1.5px solid var(--border);background:var(--card);border-radius:12px;
+    color:var(--muted);cursor:pointer;font-family:inherit;font-size:.68rem;font-weight:800}
+  .aishow:hover{border-color:var(--brand);color:var(--brand)}
+  .aihint{font-size:.72rem;color:var(--muted);line-height:1.5;margin:7px 1px 0}
+  .aihint a{font-weight:700}
+  .ai-gen{width:100%;min-height:48px;margin-top:18px;font-size:.92rem}
+  .ainote{font-size:.7rem;color:var(--muted);line-height:1.55;margin-top:12px;text-align:center}
+  .ainote .ico{width:13px;height:13px;vertical-align:-.18em}
+  .aistatus{margin-top:12px;padding:10px 12px;border-radius:12px;font-size:.8rem;line-height:1.55;
+    background:var(--card2);border:1px solid var(--border);color:var(--muted)}
+  .aistatus.err{background:var(--wrong-soft);border-color:var(--wrong);color:var(--wrong);font-weight:700}
+  .aistatus.ok{background:var(--right-soft);border-color:var(--right);color:var(--right);font-weight:700}
+  .ai-load{text-align:center;padding:26px 14px 18px}
+  .ai-load .aispin{width:38px;height:38px;border-radius:50%;margin:0 auto 14px;border:3px solid var(--border);
+    border-top-color:var(--brand);animation:aispin .8s linear infinite}
+  @keyframes aispin{to{transform:rotate(360deg)}}
+  .ai-load b{display:block;font-size:.98rem}
+  .ai-load p{margin:4px 0 0;font-size:.79rem;color:var(--muted)}
+  .aipassage{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:12px 14px;
+    font-size:.88rem;line-height:1.65;max-height:270px;overflow:auto;overscroll-behavior:contain;margin:10px 0 14px}
+  .aipassage b{display:block;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .aiquizq{font-weight:700;margin:10px 0;font-size:1rem;line-height:1.55}
+  .aiexplain{font-size:.83rem;color:var(--muted);line-height:1.6;margin-top:9px;padding:10px 12px;
+    background:var(--card2);border-radius:11px}
+  .aiexplain b{color:var(--fg)}
+  .aitask{background:var(--brand-soft);border:1px solid var(--border);border-radius:14px;padding:13px 15px;
+    font-size:.91rem;line-height:1.65;margin:10px 0 14px}
+  .aitask .k{display:block;font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--brand);margin-bottom:4px}
+  .aitextarea{width:100%;min-height:170px;resize:vertical;background:var(--card2);border:1.5px solid var(--border);
+    border-radius:14px;padding:12px 14px;color:var(--fg);font-family:inherit;font-size:.9rem;line-height:1.65;outline:none}
+  .aitextarea:focus{border-color:var(--brand);background:var(--card)}
+  .aiwcount{font-size:.72rem;color:var(--muted);text-align:right;margin-top:5px;font-variant-numeric:tabular-nums}
+  .aimodel{margin-top:12px;background:var(--card2);border:1px solid var(--border);border-radius:14px;
+    padding:12px 14px;font-size:.88rem;line-height:1.7;white-space:pre-wrap}
+  .aimodel b.k{display:block;font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--brand);margin-bottom:6px;white-space:normal}
+  .aibu{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .aibu span{font-size:.73rem;background:var(--accent-soft);border-radius:999px;padding:4px 10px}
+  .aiqmeta{font-size:.71rem;color:var(--muted);font-weight:700;margin-bottom:4px}
+  .aifoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   }
@@ -753,6 +1022,9 @@
 <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.4 3.7 5.6 3.7 9s-1.3 6.6-3.7 9c-2.4-2.4-3.7-5.6-3.7-9S9.6 5.4 12 3Z"/></symbol>
 <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.8 3.1 5 4.6 5 9a5 5 0 0 1-10 0c0-1.8.7-3 1.7-4.1.5-.6 1.3-.4 1.4.4.1.9.6 1.6 1.2 1.7-.2-2.4.1-4.6.7-7Z"/></symbol>
 <symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.1 0 2-.9 2-2 0-.5-.2-.9-.5-1.3-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8h1.7a4.5 4.5 0 0 0 4.5-4.5c0-3.6-4-6.2-9-6.2Z"/><circle cx="7.6" cy="10.2" r="1" fill="currentColor" stroke="none"/><circle cx="10.4" cy="6.9" r="1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="7.1" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7.5 7.5 0 1 0 10.5 10.5Z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor" stroke="none"/></symbol>
 <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/><path d="M8 7h8"/></symbol>
 <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20v-6M11 20V6M16 20v-9M21 20V9"/></symbol>
@@ -766,7 +1038,6 @@
 <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
 <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V3m0 0 4 4m-4-4-4 4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
 <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9.5 7V4h5v3M6.5 7l1 12.5A1.5 1.5 0 0 0 9 21h6a1.5 1.5 0 0 0 1.5-1.5L17.5 7"/><path d="M10 11v6M14 11v6"/></symbol>
-<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
 <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m4 17.5 5-5 4 4 3-3 4 4"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
@@ -850,11 +1121,31 @@
       <h3><svg class=ico><use href=#i-mic></use></svg> Interview Drill</h3>
       <p id="drillP">Off-script প্রশ্ন, ৫ সেকেন্ড ভাবুন, জোরে উত্তর দিন, নমুনা উত্তর সাথে</p>
     </button>
+    <div class="airow">
+      <button class="hero ai" id="aiBtn" type="button">
+        <h3><svg class=ico><use href=#i-sparkles></use></svg> <span id="aiBtnTitle">AI প্রশ্ন</span> <span class="aibadge">Gemini</span></h3>
+        <p id="aiBtnSub">নিজের API key দিয়ে লেভেলভিত্তিক বা IELTS ফরম্যাটে প্রশ্ন তৈরি করুন</p>
+      </button>
+      <div class="aiside">
+        <button class="hero ai aisent" id="aiSentBtn" type="button">
+          <h3><svg class=ico><use href=#i-chat></use></svg> <span id="aiSentLbl">AI বাক্য</span></h3>
+        </button>
+        <button class="hero ai aisent" id="aiConvoBtn" type="button">
+          <h3><svg class=ico><use href=#i-chat></use></svg> <span id="aiConvoLbl">AI সংলাপ</span></h3>
+        </button>
+      </div>
+    </div>
+    <button class="btn ghost small" id="aiSavedBtn" type="button" style="margin-top:8px"><svg class=ico><use href=#i-book></use></svg> <span id="aiSavedLbl">সেভ করা AI</span><span class="savedn hidden" id="aiSavedN"></span></button>
     <div class="sectitle" id="dailyTitle">দৈনন্দিন ইংরেজি (শুনে শিখুন)</div>
     <div class="pcards">
       <button class="pcard" id="convoBtn" type="button"><span class="pic"><svg class=ico><use href=#i-chat></use></svg></span><span class="pt">Conversations</span><span class="ps" id="convoS">১২টি বাস্তব সংলাপ</span></button>
       <button class="pcard" id="sentBtn" type="button"><span class="pic"><svg class=ico><use href=#i-cards></use></svg></span><span class="pt">Sentence Bank</span><span class="ps" id="sentS">১৫০টি দরকারি বাক্য</span></button>
     </div>
+    <div class="sectitle" id="refTitle">রেফারেন্স</div>
+    <button class="hero ref" id="irrBtn" type="button">
+      <h3><svg class=ico><use href=#i-book></use></svg> Irregular Verbs</h3>
+      <p id="irrS">২০৪টি অনিয়মিত ক্রিয়া — V1 · V2 · V3</p>
+    </button>
     <div class="notecard" id="benchN"><svg class=ico><use href=#i-waveform></use></svg> <b>মাসিক benchmark:</b> প্রতি মাসের ১ তারিখে একই ৩ টপিকে ২ মিনিট করে রেকর্ড করুন
       (পরিচয়, গতকাল, কেন এই দেশ), আগের মাসেরটার সাথে মিলিয়ে শুনুন.</div>
   </div>
@@ -950,6 +1241,13 @@
         <button class="ablink" id="aboutThemeBtn" type="button"><svg class=ico><use href=#i-palette></use></svg> <span id="aboutThemeLbl">থিম বদলান</span></button>
       </div>
       <div class="abnote" id="abnote">নিজে শিখুন, নিজে এগিয়ে যান. একটি শান্ত, নিজস্ব শেখার জায়গা. সব অগ্রগতি শুধু আপনার ডিভাইসে থাকে.</div>
+      <div class="abauthor">
+        <div class="abnote" style="margin-top:0"><span id="abAuthor">তৈরি করেছেন</span> <b>MD Fahad Alam</b></div>
+        <div class="ablinks">
+          <a class="ablink" href="https://github.com/SHADw9" rel="noopener"><svg class=ico><use href=#i-globe></use></svg> GitHub</a>
+          <a class="ablink" href="https://instagram.com/mdfahadalam9" rel="noopener"><svg class=ico><use href=#i-heart></use></svg> Instagram</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -995,6 +1293,11 @@
       </div>
       <button class="iconclose" id="themeClose" type="button" aria-label="Close"><svg class=ico><use href=#i-close></use></svg></button>
     </div>
+    <div class="mode-head">
+      <span class="mode-label" id="modeLabel">অ্যাপিয়ারেন্স</span>
+      <span class="mode-hint" id="modeHint">লাইট বা ডার্ক — যেকোনো থিমের সাথে</span>
+    </div>
+    <div class="seg mode-seg" id="modeSeg" role="group" aria-labelledby="modeLabel"></div>
     <div class="theme-grid" id="themeGrid"></div>
   </div>
 </div>
@@ -1036,14 +1339,106 @@
     </div>
   </div>
 </div>
+<!-- AI question generator -->
+<div class="sheet-backdrop hidden" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
+  <div class="sheet aish">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 class="sheet-title" id="aiTitle">AI প্রশ্ন</h2>
+        <p class="sheet-sub" id="aiSub">Gemini দিয়ে নিজের লেভেল বা IELTS ফরম্যাটে প্রশ্ন বানান.</p>
+      </div>
+      <button class="iconclose" id="aiClose" type="button" aria-label="Close"><svg class=ico><use href=#i-close></use></svg></button>
+    </div>
+    <div class="aisec">
+      <label class="ailabel" for="aiKey" id="aiKeyLabel">Gemini API key</label>
+      <div class="aiinputrow">
+        <input class="aiinput" id="aiKey" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="AIza...">
+        <button class="aikeybtn" id="aiKeyEye" type="button" aria-label="Show key">দেখুন</button>
+      </div>
+      <p class="aihint" id="aiKeyHint">কী কোথায় পাবেন? aistudio.google.com/apikey — key শুধু আপনার ডিভাইসে থাকে এবং শুধু Google-এ যায়.</p>
+      <div class="airemember">
+        <input type="checkbox" id="aiRemember" checked>
+        <label for="aiRemember" id="aiRememberLbl">এই ডিভাইসে key মনে রাখুন</label>
+        <button class="aiforget" id="aiForget" type="button">key মুছুন</button>
+      </div>
+    </div>
+    <div class="aisec">
+      <span class="ailabel" id="aiWhatLabel">কী বানাবেন</span>
+      <div class="seg aiseg" id="aiMode" role="group" aria-labelledby="aiWhatLabel">
+        <button type="button" data-mode="level" class="active" aria-pressed="true" id="aiModeLevel">লেভেল practice</button>
+        <button type="button" data-mode="ielts" aria-pressed="false" id="aiModeIelts">IELTS ফরম্যাট</button>
+      </div>
+    </div>
+    <div class="aisec" id="aiLevelSec">
+      <span class="ailabel" id="aiLevelLabel">লেভেল</span>
+      <div class="aichips" id="aiLevelChips" role="group" aria-labelledby="aiLevelLabel"></div>
+    </div>
+    <div class="aisec hidden" id="aiIeltsSec">
+      <span class="ailabel" id="aiSkillLabel">IELTS অংশ</span>
+      <div class="aichips" id="aiSkillChips" role="group" aria-labelledby="aiSkillLabel"></div>
+    </div>
+    <div class="aisec">
+      <label class="ailabel" for="aiTopic" id="aiTopicLabel">বিষয় (ঐচ্ছিক)</label>
+      <input class="aiinput" id="aiTopic" type="text" maxlength="80" autocomplete="off" placeholder="যেমন: travel, work, environment">
+    </div>
+    <div class="aisec" id="aiCountSec">
+      <span class="ailabel" id="aiCountLabel">প্রশ্ন সংখ্যা</span>
+      <div class="seg aiseg" id="aiCount" role="group" aria-labelledby="aiCountLabel">
+        <button type="button" data-n="5" class="active" aria-pressed="true">৫</button>
+        <button type="button" data-n="10" aria-pressed="false">১০</button>
+      </div>
+    </div>
+    <button class="btn aigen" id="aiGen" type="button"><svg class=ico><use href=#i-sparkles></use></svg> <span id="aiGenLbl">প্রশ্ন তৈরি করুন</span></button>
+    <div class="aistatus" id="aiStatus" role="status" aria-live="polite"></div>
+    <p class="aihint" id="aiNote">প্রশ্ন তৈরি করতে ইন্টারনেট লাগে. key শুধু Gemini API-তে পাঠানো হয়, আর কোথাও যায় না. AI ভুল করতে পারে — উত্তর যাচাই করে পড়ুন.</p>
+  </div>
+</div>
+<!-- AI sentences from a Sentence Bank topic -->
+<div class="sheet-backdrop hidden" id="aiSentModal" role="dialog" aria-modal="true" aria-labelledby="aiSentTitle">
+  <div class="sheet">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 class="sheet-title" id="aiSentTitle">AI বাক্য</h2>
+        <p class="sheet-sub" id="aiSentSub2">Sentence Bank থেকে একটি বিষয় বেছে নিন.</p>
+      </div>
+      <button class="iconclose" id="aiSentClose" type="button" aria-label="Close"><svg class=ico><use href=#i-close></use></svg></button>
+    </div>
+    <div class="seg aiseg" id="aiSentKind" role="group" aria-label="Type" style="margin-top:12px">
+      <button type="button" data-k="sent" class="active" aria-pressed="true" id="aiKindSent">বাক্য</button>
+      <button type="button" data-k="convo" aria-pressed="false" id="aiKindConvo">সংলাপ</button>
+    </div>
+    <div class="aichips" id="aiSentTopics" role="group" aria-labelledby="aiSentTitle" style="margin-top:14px"></div>    <button class="btn aigen" id="aiSentGo" type="button"><svg class=ico><use href=#i-sparkles></use></svg> <span id="aiSentGoLbl">বাক্য তৈরি করুন</span></button>
+    <div class="aistatus" id="aiSentStatus" role="status" aria-live="polite"></div>
+    <div id="aiSentOut" aria-live="polite"></div>
+    <p class="aihint" id="aiSentNote">ইন্টারনেট লাগে; key শুধু Gemini API-তে যায়. AI ভুল করতে পারে.</p>
+  </div>
+</div>
+<!-- Saved AI sets (work offline) -->
+<div class="sheet-backdrop hidden" id="aiSavedModal" role="dialog" aria-modal="true" aria-labelledby="aiSavedTitle">
+  <div class="sheet">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 class="sheet-title" id="aiSavedTitle">সেভ করা AI</h2>
+        <p class="sheet-sub" id="aiSavedSub">আগে তৈরি করা সেট আবার খুলুন — ইন্টারনেট ছাড়াই.</p>
+      </div>
+      <button class="iconclose" id="aiSavedClose" type="button" aria-label="Close"><svg class=ico><use href=#i-close></use></svg></button>
+    </div>
+    <div id="aiSavedList"></div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="diagrams.js"></script>
 <script src="data.js"></script>
+<script src="verbs.js"></script>
 <script>
 (function(){
   "use strict";
   var DATA=(window.STUDY_DATA&&window.STUDY_DATA.units)?window.STUDY_DATA.units:[];
+  var IRR=window.IRREGULAR_VERBS||[];
   var DIAG=window.DIAGRAMS||{};
   var LEVELS=["A1","A2","B1","B2","C1","C2"];
   var KEY="study_center_progress_v1";
@@ -1085,6 +1480,8 @@
     sT('aboutThemeLbl','থিম বদলান','Change theme');
     sT('themeTitle','থিম বেছে নিন','Choose a theme');
     sT('themeSub','আপনার পড়ার মুড অনুযায়ী রঙ বদলান.','Pick the colours that suit your reading mood.');
+    sT('modeLabel','অ্যাপিয়ারেন্স','Appearance');
+    sT('modeHint','লাইট বা ডার্ক — যেকোনো থিমের সাথে','Light or dark — with any theme');
     sT('dictTitle','অভিধান','Dictionary');
     sT('dictRecentTitle','সাম্প্রতিক','Recent');
     sT('dictSpeakLbl','শুনুন','Listen');
@@ -1098,9 +1495,42 @@
     sT('studyKnow','জানি','I know it');
     sT('pTitle','আজকের practice — শেষ করে টিক দিন','Today\'s practice — tick when done');
     sT('drillP','Off-script প্রশ্ন, ৫ সেকেন্ড ভাবুন, জোরে উত্তর দিন, নমুনা উত্তর সাথে','Off-script questions, think 5 seconds, answer aloud, sample answer given');
+    sT('aiBtnTitle','AI প্রশ্ন','AI questions');
+    sT('aiBtnSub','নিজের API key দিয়ে লেভেলভিত্তিক বা IELTS ফরম্যাটে প্রশ্ন তৈরি করুন','Generate level-based or IELTS-style questions with your own API key');
+    sT('aiTitle','AI প্রশ্ন','AI questions');
+    sT('aiSub','Gemini দিয়ে নিজের লেভেল বা IELTS ফরম্যাটে প্রশ্ন বানান.','Generate questions for your level or in IELTS format with Gemini.');
+    sT('aiKeyLabel','Gemini API key','Gemini API key');
+    sT('aiKeyHint','কী কোথায় পাবেন? aistudio.google.com/apikey — key শুধু আপনার ডিভাইসে থাকে এবং শুধু Google-এ যায়.','Where to get a key? aistudio.google.com/apikey — the key stays on your device and is sent only to Google.');
+    sT('aiRememberLbl','এই ডিভাইসে key মনে রাখুন','Remember the key on this device');
+    sT('aiForget','key মুছুন','Remove key');
+    sT('aiWhatLabel','কী বানাবেন','What to generate');
+    sT('aiModeLevel','লেভেল practice','Level practice');
+    sT('aiModeIelts','IELTS ফরম্যাট','IELTS format');
+    sT('aiLevelLabel','লেভেল','Level');
+    sT('aiSkillLabel','IELTS অংশ','IELTS section');
+    sT('aiTopicLabel','বিষয় (ঐচ্ছিক)','Topic (optional)');
+    var at=document.getElementById('aiTopic'); if(at)at.placeholder=T('যেমন: travel, work, environment','e.g. travel, work, environment');
+    sT('aiCountLabel','প্রশ্ন সংখ্যা','Number of questions');
+    sT('aiGenLbl','প্রশ্ন তৈরি করুন','Generate questions');
+    sT('aiNote','প্রশ্ন তৈরি করতে ইন্টারনেট লাগে. key শুধু Gemini API-তে পাঠানো হয়, আর কোথাও যায় না. AI ভুল করতে পারে — উত্তর যাচাই করে পড়ুন.','Generating needs the internet. Your key is sent only to the Gemini API and nowhere else. AI can be wrong — check the answers.');
+    var _ac5=document.querySelector('#aiCount button[data-n="5"]'); if(_ac5)_ac5.textContent=(LANG==='en'?'5':'৫');
+    var _ac10=document.querySelector('#aiCount button[data-n="10"]'); if(_ac10)_ac10.textContent=(LANG==='en'?'10':'১০');
     sT('dailyTitle','দৈনন্দিন ইংরেজি (শুনে শিখুন)','Everyday English (learn by listening)');
     sT('convoS','১২টি বাস্তব সংলাপ','12 real dialogues');
     sT('sentS','১৫০টি দরকারি বাক্য','150 useful sentences');
+    sT('refTitle','রেফারেন্স','Reference');
+    sT('irrS',IRR.length+'টি অনিয়মিত ক্রিয়া — V1 · V2 · V3',IRR.length+' irregular verbs — V1 · V2 · V3');
+    sT('aiSentLbl','AI বাক্য','AI sentences');
+    sT('aiConvoLbl','AI সংলাপ','AI conversation');
+    sT('aiSentTitle','AI বাক্য','AI sentences');
+    sT('aiSentSub2','Sentence Bank থেকে একটি বিষয় বেছে নিন.','Pick a Sentence Bank topic.');
+    sT('aiSentGoLbl','বাক্য তৈরি করুন','Generate sentences');
+    sT('aiKindSent','বাক্য','Sentences');
+    sT('aiKindConvo','সংলাপ','Dialogue');
+    sT('aiSavedLbl','সেভ করা AI','Saved AI');
+    sT('aiSavedTitle','সেভ করা AI','Saved AI');
+    sT('aiSavedSub','আগে তৈরি করা সেট আবার খুলুন — ইন্টারনেট ছাড়াই.','Reopen sets you made earlier — no internet needed.');
+    sT('aiSentNote','ইন্টারনেট লাগে; key শুধু Gemini API-তে যায়. AI ভুল করতে পারে.','Needs the internet; your key goes only to the Gemini API. AI can be wrong.');
     sH('benchN','<svg class=ico><use href=#i-waveform></use></svg> <b>মাসিক benchmark:</b> প্রতি মাসের ১ তারিখে একই ৩ টপিকে ২ মিনিট করে রেকর্ড করুন (পরিচয়, গতকাল, কেন এই দেশ), আগের মাসেরটার সাথে মিলিয়ে শুনুন.','<svg class=ico><use href=#i-waveform></use></svg> <b>Monthly benchmark:</b> On the 1st of each month, record 2 minutes on the same 3 topics (introduce yourself, yesterday, why this country) and compare with last month.');
     sT('streakW','দিনের streak','day streak');
     sT('streakN','দিনে ≥৩ টিক হলে streak বাড়ে','3+ ticks a day keeps the streak');
@@ -1111,6 +1541,7 @@
     sT('restoreLbl','ফিরিয়ে আনুন','Restore');
     sT('delLbl','মুছুন','Delete');
     sT('abnote','নিজে শিখুন, নিজে এগিয়ে যান. একটি শান্ত, নিজস্ব শেখার জায়গা. সব অগ্রগতি শুধু আপনার ডিভাইসে থাকে.','Learn on your own, move forward on your own. A calm space to learn, with all progress kept on your device.');
+    sT('abAuthor','তৈরি করেছেন','Made by');
     sT('footerN','kotha-koi · progress এই ডিভাইসে থাকে — মাঝে মাঝে backup নিন','kotha-koi · progress is saved on this device. Back it up now and then.');
   }
 
@@ -1130,11 +1561,24 @@
   var themePref='vermilion';
   try{ themePref=localStorage.getItem(THEME_KEY)||'vermilion'; }catch(e){}
   if(!THEMES.some(function(t){return t.id===themePref;})) themePref='vermilion';
+  var MODE_KEY='kk_mode';
+  var MODES=[
+    {id:'auto', bn:'অটো', en:'Auto', icon:'i-auto'},
+    {id:'light', bn:'লাইট', en:'Light', icon:'i-sun'},
+    {id:'dark', bn:'ডার্ক', en:'Dark', icon:'i-moon'}
+  ];
+  var modePref='auto';
+  try{ modePref=localStorage.getItem(MODE_KEY)||'auto'; }catch(e){}
+  if(!MODES.some(function(m){return m.id===modePref;})) modePref='auto';
   function resolvedTheme(pref){
     if(pref!=='auto') return pref;
+    return 'vermilion';
+  }
+  function resolvedMode(pref){
+    if(pref==='light'||pref==='dark') return pref;
     var dark=false;
     try{ dark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches; }catch(e){}
-    return dark?'night':'vermilion';
+    return dark?'dark':'light';
   }
   function themeMeta(id){ for(var i=0;i<THEMES.length;i++) if(THEMES[i].id===id) return THEMES[i]; return THEMES[0]; }
   var toastTimer=null;
@@ -1151,25 +1595,60 @@
       b.setAttribute('aria-pressed',on?'true':'false');
     });
   }
-  function applyTheme(pref,announce){
-    themePref=pref;
-    try{ localStorage.setItem(THEME_KEY,pref); }catch(e){}
-    var resolved=resolvedTheme(pref);
-    document.documentElement.setAttribute('data-theme',resolved);
-    document.documentElement.style.colorScheme=(resolved==='night')?'dark':'light';
+  function markModeSelection(){
+    var seg=document.getElementById('modeSeg'); if(!seg)return;
+    Array.prototype.forEach.call(seg.querySelectorAll('button'),function(b){
+      var on=b.getAttribute('data-mode')===modePref;
+      b.classList.toggle('active',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  function syncAppearance(){
+    var theme=resolvedTheme(themePref);
+    var mode=resolvedMode(modePref);
+    var root=document.documentElement;
+    root.setAttribute('data-theme',theme);
+    root.setAttribute('data-mode',mode);
+    root.style.colorScheme=mode;
     var meta=document.getElementById('themeColor');
     if(meta){
       try{
-        var bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+        var bg=getComputedStyle(root).getPropertyValue('--bg').trim();
         if(bg) meta.setAttribute('content',bg);
       }catch(e){}
     }
     markThemeSelection();
+    markModeSelection();
+  }
+  function applyTheme(pref,announce){
+    themePref=pref;
+    try{ localStorage.setItem(THEME_KEY,pref); }catch(e){}
+    syncAppearance();
     if(announce){
       var t=themeMeta(pref);
       showToast(T('থিম · ','Theme · ')+T(t.bn,t.en));
     }
   }
+  function applyMode(pref,announce){
+    modePref=pref;
+    try{ localStorage.setItem(MODE_KEY,pref); }catch(e){}
+    syncAppearance();
+    if(announce){
+      var m=modeMeta(pref);
+      showToast(T('অ্যাপিয়ারেন্স · ','Appearance · ')+T(m.bn,m.en));
+    }
+  }
+  function applyAppearance(){ syncAppearance(); }
+  function buildModeControl(){
+    var seg=document.getElementById('modeSeg'); if(!seg)return;
+    seg.innerHTML=MODES.map(function(m){
+      return '<button type="button" data-mode="'+m.id+'" aria-pressed="false">'+
+        '<svg class="ico" aria-hidden="true"><use href="#'+m.icon+'"></use></svg>'+
+        '<span>'+esc(T(m.bn,m.en))+'</span></button>';
+    }).join('');
+    markModeSelection();
+  }
+  function modeMeta(id){ for(var i=0;i<MODES.length;i++) if(MODES[i].id===id) return MODES[i]; return MODES[0]; }
   function buildThemeGrid(){
     var grid=document.getElementById('themeGrid'); if(!grid)return;
     grid.innerHTML=THEMES.map(function(t){
@@ -1184,6 +1663,7 @@
   }
   var themeReturnFocus=null;
   function openThemeSheet(){
+    buildModeControl();
     buildThemeGrid();
     var m=document.getElementById('themeModal'); if(!m)return;
     themeReturnFocus=document.activeElement;
@@ -1213,12 +1693,18 @@
       applyTheme(btn.getAttribute('data-theme'),true);
       setTimeout(closeThemeSheet,180);
     });
+    var _modeSeg=document.getElementById('modeSeg');
+    if(_modeSeg)_modeSeg.addEventListener('click',function(e){
+      var btn=e.target.closest&&e.target.closest('button[data-mode]');
+      if(!btn)return;
+      applyMode(btn.getAttribute('data-mode'),true);
+    });
   }
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'){
       var tm=document.getElementById('themeModal');
       if(tm&&!tm.classList.contains('hidden')){ closeThemeSheet(); return; }
-      ['dictModal','studyModal'].forEach(function(id){
+      ['dictModal','studyModal','aiModal','aiSentModal','aiSavedModal'].forEach(function(id){
         var m=document.getElementById(id); if(m&&!m.classList.contains('hidden'))m.classList.add('hidden');
       });
     }
@@ -1235,7 +1721,7 @@
   });
   try{
     var _mq=window.matchMedia('(prefers-color-scheme: dark)');
-    var _mqHandler=function(){ if(themePref==='auto') applyTheme('auto',false); };
+    var _mqHandler=function(){ if(modePref==='auto') syncAppearance(); };
     if(_mq.addEventListener) _mq.addEventListener('change',_mqHandler);
     else if(_mq.addListener) _mq.addListener(_mqHandler);
   }catch(e){}
@@ -1261,45 +1747,6 @@
     }catch(e){}
   }
   function ttsBtn(text){ if(!TTS_OK)return ""; return '<button class="ttsb" data-say="'+esc(text).replace(/"/g,'&quot;')+'" title="শুনুন" aria-label="listen"><svg class=ico><use href=#i-speaker></use></svg></button>'; }
-
-  /* ---------- ads bridge (active ONLY inside the published Android app) ---------- */
-  var ADS = (typeof AndroidBridge!=="undefined" && !!AndroidBridge);
-  var _unitsSinceAd=0, _pendingUnlock=null, _unlockGot=0;
-  var UNLOCK_VIDEOS=2;
-  function maybeInterstitial(){
-    if(!ADS)return;
-    _unitsSinceAd++;
-    if(_unitsSinceAd>=4){ _unitsSinceAd=0; try{AndroidBridge.showInterstitial();}catch(e){} }
-  }
-  function startUnlock(id){
-    _pendingUnlock=id; _unlockGot=0;
-    if(!ADS){ doUnlock(); return; }
-    try{ AndroidBridge.showRewarded('onRewardUnlock'); }catch(e){ doUnlock(); }
-  }
-  function doUnlock(){
-    if(!_pendingUnlock)return;
-    if(!progress._unlocked)progress._unlocked={};
-    progress._unlocked[_pendingUnlock]=true; saveP(progress);
-    var id=_pendingUnlock; _pendingUnlock=null; _unlockGot=0;
-    render_list(); openUnit(id);
-  }
-  function isUnlocked(gi){
-    if(!ADS) return true;
-    if(gi<=0) return true;
-    var id=DATA[gi].id;
-    if(progress._unlocked && progress._unlocked[id]) return true;
-    var prev=progress[DATA[gi-1].id];
-    var prevPass = !!(prev && (prev.passed || (prev.score && prev.score.correct/prev.score.total>=0.9)));
-    if(!prevPass) return false;
-    // group boundary: previous week's exam must be passed to start a new 7-unit block
-    if(gi%7===0){ var k=(gi/7)-1; if(k>=0 && (gi<DATA.length) && !weeklyPassed(k)) return false; }
-    return true;
-  }
-  window.onRewardUnlock=function(){
-    _unlockGot++;
-    if(_unlockGot<UNLOCK_VIDEOS){ setTimeout(function(){ try{AndroidBridge.showRewarded('onRewardUnlock');}catch(e){ doUnlock(); } },300); }
-    else { doUnlock(); }
-  };
 
   /* ---------- daily tracker ---------- */
   var PKEYS=[["pr","<svg class=ico><use href=#i-speaker></use></svg>",T("উচ্চারণ","Pronounce"),T("শুনে বলুন — drill","Listen and say")],["sp","<svg class=ico><use href=#i-mic></use></svg>","Speaking",T("Interview drill","Interview drill")],
@@ -1396,16 +1843,7 @@
   }
   function bindUnitRows(scope){
     Array.prototype.forEach.call(scope.querySelectorAll(".urow"),function(c){
-      c.onclick=function(){
-        var id=c.getAttribute("data-id");
-        if(c.getAttribute("data-locked")==="1"){
-          if(confirm(T("এই unit এখনো locked. আগের unit এর টেস্টে পাস করলে এমনিতেই খুলবে.\n\nএখনই খুলতে চাইলে ২টি ভিডিও দেখুন?","This unit is locked. Pass the previous unit's test to unlock it.\n\nUnlock now by watching 2 videos?"))){
-            startUnlock(id);
-          }
-          return;
-        }
-        openUnit(id);
-      };
+      c.onclick=function(){ openUnit(c.getAttribute("data-id")); };
     });
   }
   function render_toc(){
@@ -1421,9 +1859,8 @@
         var u=unitById(id); if(!u)return "";
         var pr=progress[id]||{};
         var upct=pr.score?Math.round(pr.score.correct/pr.score.total*100):(pr.done?100:0);
-        var locked=!isUnlocked(DATA.indexOf(u));
-        var inner=locked?"<svg class=ico><use href=#i-lock></use></svg>":(pr.done?"✓":(pr.score?upct+"":""));
-        return '<button type="button" class="urow'+(locked?' locked':'')+'" data-id="'+id+'" data-locked="'+(locked?1:0)+'">'+
+        var inner=pr.done?"✓":(pr.score?upct+"":"");
+        return '<button type="button" class="urow" data-id="'+id+'">'+
           '<span class="'+(pr.done?"ring done":"ring")+'" style="--p:'+upct+'"><b>'+inner+'</b></span>'+
           '<span class="umain"><span class="utitle">'+esc(u.title)+'</span>'+
           '<span class="usub"><span>'+id+'</span><span>'+(u.test?u.test.length:0)+' '+T('প্রশ্ন','Q')+'</span>'+
@@ -1476,26 +1913,15 @@
         var low=pr.score&&(pr.score.correct/pr.score.total<0.7);
         if(old||low)rev='<span class="rev"><svg class=ico><use href=#i-repeat></use></svg> '+T('আবার','Again')+'</span>';
       }
-      var locked=!isUnlocked(DATA.indexOf(u));
-      var lockb=locked?'<span class="lock"><svg class=ico><use href=#i-lock></use></svg> locked</span>':'';
       var meta='<span class="lvl">'+u.level+'</span><span>'+u.id+'</span><span>'+(u.test?u.test.length:0)+' '+T('প্রশ্ন','Q')+'</span>'+
-        (u.diagram?'<span><svg class=ico><use href=#i-image></use></svg></span>':'')+rev+lockb+(pr.done&&pr.date?'<span><svg class=ico><use href=#i-calendar></use></svg> '+pr.date+'</span>':'');
-      return '<button type="button" class="urow'+(locked?' locked':'')+'" data-id="'+u.id+'" data-locked="'+(locked?1:0)+'">'+
-        '<span class="'+ringCls+'" style="--p:'+pct+'"><b>'+(locked?"<svg class=ico><use href=#i-lock></use></svg>":ringIn)+'</b></span>'+
+        (u.diagram?'<span><svg class=ico><use href=#i-image></use></svg></span>':'')+rev+(pr.done&&pr.date?'<span><svg class=ico><use href=#i-calendar></use></svg> '+pr.date+'</span>':'');
+      return '<button type="button" class="urow" data-id="'+u.id+'">'+
+        '<span class="'+ringCls+'" style="--p:'+pct+'"><b>'+ringIn+'</b></span>'+
         '<span class="umain"><span class="utitle">'+esc(u.title)+'</span><span class="usub">'+meta+'</span></span>'+
         '<span class="chev">'+IC('chev')+'</span></button>';
     }).join("");
     Array.prototype.forEach.call(el.querySelectorAll(".urow"),function(c){
-      c.onclick=function(){
-        var id=c.getAttribute("data-id");
-        if(c.getAttribute("data-locked")==="1"){
-          if(confirm(T("এই unit এখনো locked. আগের unit এর টেস্টে পাস করলে এমনিতেই খুলবে.\n\nএখনই খুলতে চাইলে ২টি ভিডিও দেখুন?","This unit is locked. Pass the previous unit's test to unlock it.\n\nUnlock now by watching 2 videos?"))){
-            startUnlock(id);
-          }
-          return;
-        }
-        openUnit(id);
-      };
+      c.onclick=function(){ openUnit(c.getAttribute("data-id")); };
     });
   }
   (function(){
@@ -1667,9 +2093,8 @@
             '<div style="margin-top:12px">'+(nu?'<button class="btn" id="nextU">'+T('পরের ইউনিট','Next unit')+' <svg class=ico><use href=#i-play></use></svg></button> ':'')+
             '<button class="btn ghost" id="againU"><svg class=ico><use href=#i-repeat></use></svg> '+T('আবার','Again')+'</button></div>';
           var goNext=function(){ if(nu)openUnit(nu.id); };
-          if(nu){ document.getElementById("nextU").onclick=function(){ withAd(goNext); }; }
+          if(nu){ document.getElementById("nextU").onclick=goNext; }
           document.getElementById("againU").onclick=newAttempt;
-          try{ if(ADS)setTimeout(function(){AndroidBridge.showInterstitial();},400); }catch(e){}
         } else {
           r.innerHTML='<div style="color:var(--wrong);font-size:1.1rem"><svg class=ico><use href=#i-x></use></svg> '+T(wrong+'টি ভুল. পাস হতে সর্বোচ্চ ১টি ভুল লাগবে.',wrong+' wrong. You need at most 1 wrong to pass.')+'</div>'+wrongCards+
             '<div style="margin-top:12px"><button class="btn" id="retryU"><svg class=ico><use href=#i-repeat></use></svg> '+T('আবার টেস্ট দিন (নতুন প্রশ্ন)','Retake (new questions)')+'</button> '+
@@ -1680,11 +2105,6 @@
         document.getElementById("result").scrollIntoView({behavior:"smooth",block:"center"});
       }
     }
-  }
-  function withAd(cb){
-    if(!ADS){ cb(); return; }
-    try{ AndroidBridge.showInterstitial(); }catch(e){}
-    setTimeout(cb, 300);
   }
   function nextUnitAfter(id){
     for(var i=0;i<DATA.length;i++){ if(DATA[i].id===id) return DATA[i+1]||null; }
@@ -1746,7 +2166,7 @@
         if(!progress._weekly)progress._weekly={}; progress._weekly[k]=true; saveP(progress); render_header();
         r.innerHTML='<div style="color:var(--right);font-size:1.15rem"><svg class=ico><use href=#i-sparkles></use></svg> '+T('সাপ্তাহিক পরীক্ষা পাস!','Weekly Exam passed!')+' '+cc+' / '+qs.length+'</div>'+
           '<div style="margin-top:10px"><button class="btn" id="wDone">'+T('<svg class=ico><use href=#i-check></use></svg> চালিয়ে যান','<svg class=ico><use href=#i-check></use></svg> Continue')+'</button></div>';
-        document.getElementById("wDone").onclick=function(){ withAd(function(){history.back();}); };
+        document.getElementById("wDone").onclick=function(){ history.back(); };
       } else {
         us.forEach(function(u){var p=progress[u.id]||{};p.review=true;progress[u.id]=p;}); saveP(progress);
         r.innerHTML='<div style="color:var(--wrong);font-size:1.15rem"><svg class=ico><use href=#i-x></use></svg> '+T(wrong+'টি ভুল. পাস হয়নি.',wrong+' wrong. Not passed.')+'</div>'+
@@ -1865,10 +2285,732 @@
     show();
   }
   document.getElementById("drillBtn").onclick=openDrill;
+
+  /* ---------- AI question generator (Gemini · bring your own key) ---------- */
+  var AI_KEY_STORE='kk_gemini_key', AI_PREFS_STORE='kk_ai_prefs';
+  /* 3.5 Flash Lite first; aliases below keep it working if a model name rotates. */
+  var AI_MODELS=['gemini-3.5-flash-lite','gemini-flash-lite-latest','gemini-2.5-flash-lite'];
+  var AI_SKILLS=[['speaking',T('Speaking','Speaking')],['writing',T('Writing','Writing')],['reading',T('Reading','Reading')]];
+  var aiState=(function(){
+    var d={mode:'level',level:'B1',skill:'speaking',count:5};
+    try{
+      var s=JSON.parse(localStorage.getItem(AI_PREFS_STORE)||'{}')||{};
+      if(s.mode==='level'||s.mode==='ielts')d.mode=s.mode;
+      if(LEVELS.indexOf(s.level)>=0)d.level=s.level;
+      if(['speaking','writing','reading'].indexOf(s.skill)>=0)d.skill=s.skill;
+      if(s.count===5||s.count===10)d.count=s.count;
+    }catch(e){}
+    return d;
+  })();
+  function aiSavePrefs(){ try{localStorage.setItem(AI_PREFS_STORE,JSON.stringify(aiState));}catch(e){} }
+  function aiGetKey(){ try{return localStorage.getItem(AI_KEY_STORE)||'';}catch(e){return '';} }
+  function aiStoreKey(k){ try{ if(k)localStorage.setItem(AI_KEY_STORE,k); else localStorage.removeItem(AI_KEY_STORE); }catch(e){} }
+
+  /* ---------- saved AI sets (offline-replayable) ---------- */
+  var AI_SAVED_KEY='kk_ai_saved';
+  function aiSavedLoad(){
+    try{ var a=JSON.parse(localStorage.getItem(AI_SAVED_KEY)||'[]'); return Array.isArray(a)?a:[]; }catch(e){ return []; }
+  }
+  function aiSavedStore(a){ try{ localStorage.setItem(AI_SAVED_KEY,JSON.stringify(a.slice(0,12))); }catch(e){} }
+  function aiSavedSyncCount(){
+    var el=document.getElementById('aiSavedN'); if(!el)return;
+    var n=aiSavedLoad().length; el.textContent=n?String(n):'';
+    el.classList.toggle('hidden',!n);
+  }
+  function aiSaveEntry(kind,title,req,data){
+    if(!data)return;
+    var a=aiSavedLoad();
+    a.unshift({id:'a'+Date.now()+Math.floor(Math.random()*999),kind:kind,title:title||T('AI সেট','AI set'),
+      date:new Date().toISOString().slice(0,10),req:req||null,data:data});
+    aiSavedStore(a); aiSavedSyncCount();
+  }
+  function aiSavedRemove(id){
+    aiSavedStore(aiSavedLoad().filter(function(x){return x.id!==id;}));
+    aiSavedSyncCount();
+  }
+
+  var aiModal=document.getElementById('aiModal');
+  var aiBusy=false;
+  function aiStatus(msg,kind){
+    var el=document.getElementById('aiStatus'); if(!el)return;
+    el.className='aistatus'+(kind?' '+kind:'');
+    el.textContent=msg||'';
+    el.classList.toggle('show',!!msg);
+  }
+  function aiSyncUI(){
+    var isIelts=aiState.mode==='ielts';
+    Array.prototype.forEach.call(document.querySelectorAll('#aiMode button'),function(b){
+      var on=b.getAttribute('data-mode')===aiState.mode;
+      b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    document.getElementById('aiLevelSec').classList.toggle('hidden',isIelts);
+    document.getElementById('aiIeltsSec').classList.toggle('hidden',!isIelts);
+    document.getElementById('aiLevelChips').innerHTML=LEVELS.map(function(L){
+      var on=aiState.level===L;
+      return '<button type="button" class="aichip'+(on?' on':'')+'" data-level="'+L+'" aria-pressed="'+(on?'true':'false')+'">'+L+'</button>';
+    }).join('');
+    document.getElementById('aiSkillChips').innerHTML=AI_SKILLS.map(function(s){
+      var on=aiState.skill===s[0];
+      return '<button type="button" class="aichip'+(on?' on':'')+'" data-skill="'+s[0]+'" aria-pressed="'+(on?'true':'false')+'">'+s[1]+'</button>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('#aiCount button'),function(b){
+      var on=+b.getAttribute('data-n')===aiState.count;
+      b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    document.getElementById('aiCountSec').classList.toggle('hidden',isIelts&&aiState.skill==='writing');
+  }
+  function aiOpen(){
+    var k=aiGetKey();
+    var ki=document.getElementById('aiKey'); ki.value=k; ki.type='password';
+    document.getElementById('aiKeyEye').textContent=T('দেখুন','Show');
+    document.getElementById('aiKeyEye').setAttribute('aria-label',T('key দেখুন','Show key'));
+    document.getElementById('aiRemember').checked=true;
+    aiStatus('');
+    aiSyncUI();
+    aiModal.classList.remove('hidden');
+    if(!k)setTimeout(function(){try{ki.focus();}catch(e){}},60);
+  }
+  function aiClose(){ aiModal.classList.add('hidden'); }
+  function aiResultView(){
+    var dv=document.getElementById('drillView');
+    if(dv&&!dv.classList.contains('hidden'))return dv;
+    return engineView();
+  }
+  function aiHead(kicker){
+    return '<div class="aihead"><div><div class="aikicker">'+IC('sparkles')+' '+esc(kicker)+'</div>'+
+      '<h2 class="aititle">'+T('AI প্রশ্ন','AI questions')+'</h2></div></div>';
+  }
+  function aiFootHtml(){
+    return '<div class="aifoot"><button class="btn" id="aiNew" type="button">'+IC('sparkles')+' '+T('নতুন সেট','New set')+'</button> '+
+      '<button class="btn ghost" id="aiBack" type="button">'+T('← ফিরে যাই','← Back')+'</button></div>';
+  }
+  function aiBindFoot(){
+    var n=document.getElementById('aiNew'); if(n)n.onclick=aiOpen;
+    var b=document.getElementById('aiBack'); if(b)b.onclick=function(){history.back();};
+  }
+
+  var AI_Q_ITEMS={
+    type:'OBJECT',
+    properties:{
+      question:{type:'STRING'},
+      options:{type:'ARRAY',items:{type:'STRING'}},
+      answer:{type:'INTEGER'},
+      explanation:{type:'STRING'},
+      explanation_bn:{type:'STRING'}
+    },
+    required:['question','options','answer','explanation','explanation_bn']
+  };
+  var AI_QUIZ_SCHEMA={type:'OBJECT',properties:{questions:{type:'ARRAY',items:AI_Q_ITEMS}},required:['questions']};
+  var AI_READING_SCHEMA={type:'OBJECT',properties:{
+    passage:{type:'OBJECT',properties:{title:{type:'STRING'},text:{type:'STRING'}},required:['title','text']},
+    questions:{type:'ARRAY',items:AI_Q_ITEMS}
+  },required:['passage','questions']};
+  var AI_QA_ITEMS={
+    type:'OBJECT',
+    properties:{question:{type:'STRING'},sampleAnswer:{type:'STRING'}},
+    required:['question','sampleAnswer']
+  };
+  var AI_SPEAKING_SCHEMA={type:'OBJECT',properties:{
+    part1:{type:'ARRAY',items:AI_QA_ITEMS},
+    cueCard:{type:'OBJECT',properties:{
+      topic:{type:'STRING'},
+      points:{type:'ARRAY',items:{type:'STRING'}},
+      sampleAnswer:{type:'STRING'}
+    },required:['topic','points','sampleAnswer']},
+    part3:{type:'ARRAY',items:AI_QA_ITEMS}
+  },required:['part1','cueCard','part3']};
+  var AI_WRITING_SCHEMA={type:'OBJECT',properties:{
+    tasks:{type:'ARRAY',items:{type:'OBJECT',properties:{
+      taskType:{type:'STRING'},
+      prompt:{type:'STRING'},
+      sampleAnswer:{type:'STRING'},
+      usefulPhrases:{type:'ARRAY',items:{type:'STRING'}}
+    },required:['taskType','prompt','sampleAnswer','usefulPhrases']}}
+  },required:['tasks']};
+
+  function aiBuildRequest(){
+    var topic=document.getElementById('aiTopic').value.trim();
+    var topicLine=topic?('\nUse this topic: '+topic+'.'):'\nChoose a fresh everyday topic.';
+    var system='You are a careful English teacher and IELTS examiner writing practice material for a Bengali-speaking learner. Use natural, correct English. Follow the JSON schema exactly, never add extra fields, and never repeat an item. Do not use markdown.';
+    if(aiState.mode==='level'){
+      var L=aiState.level, n=aiState.count;
+      return {
+        kind:'quiz', mode:'level', skill:'level',
+        label:L+' · '+T('লেভেল practice','Level practice'),
+        schema:AI_QUIZ_SCHEMA, system:system,
+        user:'Write '+n+' multiple-choice English practice questions for CEFR level '+L+'. Mix grammar, vocabulary and sentence-completion items suitable for '+L+' learners. Each question is one sentence or a short question; where a word is missing write three underscores (___). Give exactly 4 options with only one correct answer. "answer" is the 0-based index of the correct option. Give a short "explanation" in English and the same explanation in Bengali as "explanation_bn". Keep the rest of the vocabulary within '+L+'.'+topicLine
+      };
+    }
+    var n2=aiState.count;
+    if(aiState.skill==='reading'){
+      return {
+        kind:'quiz', mode:'ielts', skill:'reading',
+        label:'IELTS · '+T('Reading','Reading'),
+        schema:AI_READING_SCHEMA, system:system,
+        user:'Create one IELTS Academic Reading exercise for a candidate targeting band 7. Write an original passage of 220-300 words with a short title, then '+n2+' multiple-choice questions in exam order, each with exactly 4 options and one correct answer. "answer" is the 0-based index. Give "explanation" in English and "explanation_bn" in Bengali. Every question must be answerable only from the passage.'+topicLine
+      };
+    }
+    if(aiState.skill==='writing'){
+      return {
+        kind:'writing', mode:'ielts', skill:'writing',
+        label:'IELTS · Writing',
+        schema:AI_WRITING_SCHEMA, system:system,
+        user:'Create two IELTS Writing tasks for a candidate targeting band 7: one General Training Task 1 letter and one Task 2 essay (opinion or discussion). For each task give "taskType" ("Task 1" or "Task 2"), the full exam-style "prompt", a model "sampleAnswer" (Task 1 at least 150 words, Task 2 at least 260 words) and exactly 5 "usefulPhrases".'+topicLine
+      };
+    }
+    return {
+      kind:'speaking', mode:'ielts', skill:'speaking',
+      label:'IELTS · Speaking',
+      schema:AI_SPEAKING_SCHEMA, system:system,
+      user:'Create IELTS Speaking practice for a candidate targeting band 7. "part1" must contain '+n2+' short personal questions. "cueCard" is one Part 2 topic with exactly 4 bullet points and a 150-200 word sampleAnswer (use [brackets] for the candidate\'s own details). "part3" must contain '+n2+' deeper discussion questions, each with a 60-90 word sampleAnswer showing band 7+ language.'+topicLine
+    };
+  }
+
+  function aiExtract(data){
+    var cand=data&&data.candidates&&data.candidates[0];
+    if(!cand){
+      var blocked=data&&data.promptFeedback&&data.promptFeedback.blockReason;
+      throw new Error(blocked?T('Gemini এই অনুরোধটি ব্লক করেছে. অন্য বিষয় দিয়ে চেষ্টা করুন.','Gemini blocked this request. Try another topic.'):T('Gemini খালি উত্তর দিয়েছে.','Gemini returned an empty response.'));
+    }
+    if(cand.finishReason==='SAFETY'||cand.finishReason==='PROHIBITED_CONTENT'){
+      throw new Error(T('Gemini এই বিষয়টি ব্লক করেছে. অন্য বিষয় দিয়ে চেষ্টা করুন.','Gemini blocked this topic. Try another topic.'));
+    }
+    var parts=(cand.content&&cand.content.parts)||[];
+    var text=parts.map(function(p){return p.text||'';}).join('');
+    if(!text)throw new Error(T('Gemini খালি উত্তর দিয়েছে.','Gemini returned an empty response.'));
+    if(cand.finishReason==='MAX_TOKENS')throw new Error(T('উত্তর incomplete এসেছে — সংখ্যা কমিয়ে আবার চেষ্টা করুন.','The answer was cut off — try again with fewer questions.'));
+    return text;
+  }
+
+  function aiFetch(key,model,req){
+    var body={
+      systemInstruction:{parts:[{text:req.system}]},
+      contents:[{role:'user',parts:[{text:req.user}]}],
+      generationConfig:{temperature:0.9,maxOutputTokens:4096,responseMimeType:'application/json',responseSchema:req.schema}
+    };
+    var ctrl=null,timer=null;
+    try{ ctrl=new AbortController(); timer=setTimeout(function(){ctrl.abort();},75000); }catch(e){}
+    return fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-goog-api-key':key},
+      body:JSON.stringify(body),
+      signal:ctrl?ctrl.signal:undefined
+    }).then(function(r){
+      return r.text().then(function(txt){
+        var data=null; try{ data=JSON.parse(txt); }catch(e){}
+        if(!r.ok){
+          var msg=(data&&data.error&&data.error.message)||('HTTP '+r.status);
+          var err=new Error(msg); err.status=r.status; err.model=model; throw err;
+        }
+        return aiExtract(data);
+      });
+    }).then(function(x){ if(timer)clearTimeout(timer); return x; },function(e){ if(timer)clearTimeout(timer); throw e; });
+  }
+
+  function aiAsk(key,req){
+    var i=0;
+    function attempt(){
+      var model=AI_MODELS[i];
+      return aiFetch(key,model,req).catch(function(err){
+        if(err&&err.status===404&&i<AI_MODELS.length-1){ i++; return attempt(); }
+        throw err;
+      });
+    }
+    return attempt();
+  }
+
+  function aiParseJson(text){
+    var s=String(text).trim();
+    s=s.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');
+    var a=s.indexOf('{'),b=s.lastIndexOf('}');
+    if(a>=0&&b>a)s=s.slice(a,b+1);
+    return JSON.parse(s);
+  }
+  function aiNormQuestion(raw){
+    if(!raw)return null;
+    var opts=(raw.options||[]).map(function(o){return String(o==null?'':o).trim();}).filter(function(o){return o;});
+    if(opts.length<3)return null;
+    var rawAns=String(raw.answer==null?'':raw.answer).trim(),ans=parseInt(rawAns,10);
+    if(isNaN(ans)&&/^[A-Za-z]$/.test(rawAns))ans=rawAns.toUpperCase().charCodeAt(0)-65;
+    if(isNaN(ans)||ans<0||ans>=opts.length)return null;
+    return {q:String(raw.question||''),options:opts,answer:ans,
+      explain:String(raw.explanation_bn||''),explain_en:String(raw.explanation||'')};
+  }
+  function aiValidate(req,obj){
+    if(!obj||typeof obj!=='object')return null;
+    if(req.kind==='quiz'){
+      var qs=[],arr=obj.questions||[];
+      for(var i=0;i<arr.length;i++){var q=aiNormQuestion(arr[i]); if(q&&q.q)qs.push(q);}
+      if(qs.length<3)return null;
+      if(req.skill==='reading'){
+        var p=obj.passage;
+        if(!p||!p.text||String(p.text).length<80)return null;
+        return {passage:{title:String(p.title||'Reading passage'),text:String(p.text)},questions:qs};
+      }
+      return {questions:qs};
+    }
+    if(req.kind==='speaking'){
+      var cc=obj.cueCard;
+      if(!cc||!cc.sampleAnswer)return null;
+      function normQA(a){
+        return (Array.isArray(a)?a:[]).filter(function(x){return x&&x.question;}).map(function(x){
+          return {question:String(x.question),sampleAnswer:String(x.sampleAnswer||'')};
+        });
+      }
+      var p1=normQA(obj.part1),p3=normQA(obj.part3);
+      if(!p1.length||!p3.length)return null;
+      return {part1:p1,cueCard:{topic:String(cc.topic||''),points:(cc.points||[]).map(String),sampleAnswer:String(cc.sampleAnswer)},part3:p3};
+    }
+    var tasks=(Array.isArray(obj.tasks)?obj.tasks:[]).filter(function(t){return t&&t.prompt&&t.sampleAnswer;}).map(function(t){
+      return {taskType:String(t.taskType||'Task'),prompt:String(t.prompt),sampleAnswer:String(t.sampleAnswer),
+        usefulPhrases:(Array.isArray(t.usefulPhrases)?t.usefulPhrases:[]).map(String)};
+    });
+    if(!tasks.length)return null;
+    return {tasks:tasks};
+  }
+
+  function aiShowQuiz(res,req){
+    var v=aiResultView();
+    var items=res.questions,answered={},score=0;
+    var html='<div class="aiwrap">'+aiHead(req.label);
+    if(res.passage)html+='<details class="aipassage" open><summary>'+esc(res.passage.title)+'</summary><p>'+esc(res.passage.text)+'</p></details>';
+    html+='<p class="ainote">'+IC('alert')+' '+T('AI-তৈরি প্রশ্ন — ভুল থাকতে পারে. উত্তর দেখার আগে নিজে চেষ্টা করুন.','AI-generated — may contain mistakes. Try it yourself before revealing the answer.')+'</p>';
+    html+=items.map(function(q,qi){
+      var longOpts=q.options.some(function(o){return o.length>28;});
+      return '<div class="q" data-qi="'+qi+'"><div class="qt">'+(qi+1)+'. '+gapify(hl(q.q))+'</div>'+
+        '<div class="opts'+(longOpts?' long':'')+'">'+
+        q.options.map(function(o,oi){return '<button class="opt" type="button" data-oi="'+oi+'">'+hl(o)+'</button>';}).join('')+
+        '</div><div class="explain" id="aiex_'+qi+'">'+IC('bulb')+' '+hl(LG(q,'explain'))+'</div></div>';
+    }).join('');
+    html+='<div class="result hidden" id="aiResult"></div>'+aiFootHtml()+'</div>';
+    v.innerHTML=html;
+    Array.prototype.forEach.call(v.querySelectorAll('.q'),function(qEl){
+      var qi=+qEl.getAttribute('data-qi'),correct=items[qi].answer;
+      Array.prototype.forEach.call(qEl.querySelectorAll('.opt'),function(btn){
+        btn.onclick=function(){
+          if(answered[qi]!==undefined)return;
+          var oi=+btn.getAttribute('data-oi'); answered[qi]=(oi===correct);
+          Array.prototype.forEach.call(qEl.querySelectorAll('.opt'),function(b){
+            b.classList.add('disabled');
+            var bi=+b.getAttribute('data-oi');
+            if(bi===correct)b.classList.add('right'); else if(bi===oi)b.classList.add('wrong');
+          });
+          var bl=qEl.querySelector('.blank');
+          if(bl){bl.textContent=items[qi].options[correct];bl.classList.add('filled');}
+          document.getElementById('aiex_'+qi).classList.add('show');
+          if(Object.keys(answered).length===items.length)aiQuizDone();
+        };
+      });
+    });
+    function aiQuizDone(){
+      var cc=0; Object.keys(answered).forEach(function(k){ if(answered[k])cc++; });
+      autoMark('mcq');
+      var r=document.getElementById('aiResult'); r.classList.remove('hidden');
+      r.innerHTML='<div style="color:'+(cc>=items.length-1?'var(--right)':'var(--hard)')+';font-size:1.05rem">'+
+        IC(cc>=items.length-1?'check':'alert')+' '+T('ফলাফল','Score')+': '+cc+' / '+items.length+'</div>'+
+        '<div style="margin-top:12px"><button class="btn" id="aiAgain" type="button">'+IC('repeat')+' '+T('আবার','Again')+'</button></div>';
+      document.getElementById('aiAgain').onclick=function(){aiShowQuiz(res,req);};
+      r.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    aiBindFoot();
+  }
+  function aiShowSpeaking(res){
+    var v=aiResultView();
+    var html='<div class="aiwrap">'+aiHead('IELTS · Speaking')+
+      '<p class="ainote">'+IC('alert')+' '+T('AI-তৈরি — [ব্র্যাকেট]-এর জায়গায় নিজের তথ্য বসিয়ে বলুন.','AI-generated — replace [brackets] with your own details.')+'</p>';
+    html+='<div class="aicard"><div class="aikicker">Part 1 · '+T('পরিচিতি','Introduction')+'</div>'+
+      '<p class="aiprompt">'+T('ছোট ছোট উত্তর দিন — ২-৩ বাক্য.','Give short answers — 2–3 sentences.')+'</p>';
+    res.part1.forEach(function(x){
+      html+='<div class="aifollow"><div class="en">'+esc(x.question)+' '+ttsBtn(x.question)+'</div>'+
+        (x.sampleAnswer?'<details class="aidetails"><summary>'+T('নমুনা উত্তর','Model answer')+'</summary><div class="aisample">'+esc(x.sampleAnswer)+'</div></details>':'')+'</div>';
+    });
+    html+='</div><div class="aicard"><div class="aikicker">Part 2 · Cue card</div>'+
+      '<p class="aiprompt">'+esc(res.cueCard.topic)+'</p>'+
+      '<p class="aihint">'+T('১ মিনিট প্রস্তুতি · ২ মিনিট বলুন.','1 minute to prepare · speak for 2 minutes.')+'</p>'+
+      '<ul class="aibullets">'+res.cueCard.points.map(function(p){return '<li>'+esc(p)+'</li>';}).join('')+'</ul>'+
+      '<details class="aidetails"><summary>'+T('নমুনা উত্তর','Model answer')+'</summary><div class="aisample">'+esc(res.cueCard.sampleAnswer)+' '+ttsBtn(res.cueCard.sampleAnswer)+'</div></details></div>';
+    html+='<div class="aicard"><div class="aikicker">Part 3 · '+T('আলোচনা','Discussion')+'</div>';
+    res.part3.forEach(function(x){
+      html+='<div class="aifollow"><div class="en">'+esc(x.question)+' '+ttsBtn(x.question)+'</div>'+
+        (x.sampleAnswer?'<details class="aidetails"><summary>'+T('নমুনা উত্তর','Model answer')+'</summary><div class="aisample">'+esc(x.sampleAnswer)+'</div></details>':'')+'</div>';
+    });
+    html+='</div>'+aiFootHtml()+'</div>';
+    v.innerHTML=html;
+    aiBindFoot(); autoMark('sp');
+  }
+  function aiShowWriting(res){
+    var v=aiResultView();
+    var html='<div class="aiwrap">'+aiHead('IELTS · Writing')+
+      '<p class="ainote">'+IC('alert')+' '+T('AI-তৈরি — প্রথমে নিজে লিখুন, পরে নমুনা দেখুন.','AI-generated — write first, then open the model answer.')+'</p>';
+    res.tasks.forEach(function(t){
+      html+='<div class="aicard"><div class="aikicker">'+esc(t.taskType)+'</div>'+
+        '<p class="aiprompt">'+esc(t.prompt)+'</p>';
+      if(t.usefulPhrases.length)html+='<div class="aiphrases">'+t.usefulPhrases.map(function(p){return '<span>'+esc(p)+'</span>';}).join('')+'</div>';
+      html+='<details class="aidetails"><summary>'+T('নমুনা উত্তর','Model answer')+'</summary><div class="aisample">'+esc(t.sampleAnswer)+'</div></details></div>';
+    });
+    html+=aiFootHtml()+'</div>';
+    v.innerHTML=html;
+    aiBindFoot();
+  }
+
+  function aiErrText(err){
+    var s=String((err&&err.message)||'');
+    if(err&&err.status===400){
+      if(/api[_ ]?key|invalid.*key/i.test(s))return T('API key ঠিক নেই. key কপি করে আবার দিন.','That API key is not valid. Paste it again.');
+      return T('অনুরোধ ব্যর্থ হয়েছে: ','Request failed: ')+s;
+    }
+    if(err&&err.status===403)return T('এই key দিয়ে Gemini API ব্যবহার করা যাচ্ছে না. Google AI Studio-তে key ও API চালু আছে কিনা দেখুন.','This key cannot use the Gemini API. Check the key and that the API is enabled in Google AI Studio.');
+    if(err&&err.status===404)return T('মডেল পাওয়া যায়নি. কিছুক্ষণ পরে আবার চেষ্টা করুন.','The model is not available. Try again later.');
+    if(err&&err.status===429)return T('free quota শেষ (অনেক অনুরোধ হয়েছে). কিছুক্ষণ পরে চেষ্টা করুন.','Free quota reached. Wait a while and try again.');
+    if(err&&err.status>=500)return T('Gemini সার্ভার এখন ব্যস্ত. আবার চেষ্টা করুন.','Gemini is busy right now. Try again.');
+    if(err&&(err.name==='AbortError'||/abort/i.test(s)))return T('সময় শেষ — আবার চেষ্টা করুন.','Timed out — try again.');
+    if(/failed to fetch|networkerror|load failed/i.test(s))return T('ইন্টারনেট বা Google-এ পৌঁছানো যাচ্ছে না. সংযোগ দেখে আবার চেষ্টা করুন.','Cannot reach the internet or Google. Check your connection and try again.');
+    return T('কিছু একটা ভুল হয়েছে: ','Something went wrong: ')+s;
+  }
+
+  function aiGenerate(){
+    if(aiBusy)return;
+    var key=document.getElementById('aiKey').value.trim();
+    if(!key){aiStatus(T('আগে আপনার Gemini API key দিন.','Enter your Gemini API key first.'),'bad');try{document.getElementById('aiKey').focus();}catch(e){}return;}
+    if(key.length<15){aiStatus(T('key খুব ছোট — পুরো key কপি করুন.','That key looks too short — paste the whole key.'),'bad');return;}
+    var remember=document.getElementById('aiRemember').checked;
+    aiStoreKey(remember?key:'');
+    aiSavePrefs();
+    var req=aiBuildRequest();
+    aiBusy=true;
+    var btn=document.getElementById('aiGen'),lbl=document.getElementById('aiGenLbl');
+    var old=lbl.textContent; btn.disabled=true; lbl.textContent=T('তৈরি হচ্ছে…','Generating…');
+    aiStatus(T('Gemini প্রশ্ন বানাচ্ছে… ১০-৩০ সেকেন্ড লাগতে পারে.','Gemini is writing the questions… this can take 10–30 seconds.'));
+    aiAsk(key,req).then(function(text){
+      var obj;
+      try{obj=aiParseJson(text);}catch(e){throw new Error(T('AI-এর উত্তর পড়া গেল না. আবার চেষ্টা করুন.','Could not read the AI response. Try again.'));}
+      var payload=aiValidate(req,obj);
+      if(!payload)throw new Error(T('AI অপ্রত্যাশিত ফরম্যাটে উত্তর দিয়েছে. আবার চেষ্টা করুন.','The AI returned an unexpected format. Try again.'));
+      aiSaveEntry(req.kind,req.label,{kind:req.kind,skill:req.skill,label:req.label},payload);
+      aiClose();
+      showToast(T('প্রশ্ন তৈরি হয়েছে','Questions ready'));
+      if(req.kind==='quiz')aiShowQuiz(payload,req);
+      else if(req.kind==='speaking')aiShowSpeaking(payload);
+      else aiShowWriting(payload);
+    }).catch(function(err){
+      aiStatus(aiErrText(err),'bad');
+    }).then(function(){
+      aiBusy=false; btn.disabled=false; lbl.textContent=old;
+    });
+  }
+
+  document.getElementById('aiBtn').onclick=aiOpen;
+  document.getElementById('aiClose').onclick=aiClose;
+  aiModal.addEventListener('click',function(e){ if(e.target===aiModal)aiClose(); });
+  document.getElementById('aiMode').addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button[data-mode]'):null; if(!b)return;
+    aiState.mode=b.getAttribute('data-mode'); aiSavePrefs(); aiSyncUI(); aiStatus('');
+  });
+  document.getElementById('aiLevelChips').addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button[data-level]'):null; if(!b)return;
+    aiState.level=b.getAttribute('data-level'); aiSavePrefs(); aiSyncUI(); aiStatus('');
+  });
+  document.getElementById('aiSkillChips').addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button[data-skill]'):null; if(!b)return;
+    aiState.skill=b.getAttribute('data-skill'); aiSavePrefs(); aiSyncUI(); aiStatus('');
+  });
+  document.getElementById('aiCount').addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button[data-n]'):null; if(!b)return;
+    aiState.count=+b.getAttribute('data-n'); aiSavePrefs(); aiSyncUI(); aiStatus('');
+  });
+  document.getElementById('aiKeyEye').onclick=function(){
+    var i=document.getElementById('aiKey'),show=i.type==='password';
+    i.type=show?'text':'password';
+    this.textContent=show?T('লুকান','Hide'):T('দেখুন','Show');
+    this.setAttribute('aria-label',show?T('key লুকান','Hide key'):T('key দেখুন','Show key'));
+  };
+  document.getElementById('aiKey').addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();aiGenerate();} });
+  document.getElementById('aiTopic').addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();aiGenerate();} });
+  document.getElementById('aiForget').onclick=function(){
+    if(!aiGetKey()){aiStatus(T('কোনো saved key নেই.','No saved key.'),'bad');return;}
+    aiStoreKey(''); document.getElementById('aiKey').value='';
+    showToast(T('Key মুছে ফেলা হয়েছে','Key removed'));
+  };
+  document.getElementById('aiGen').onclick=aiGenerate;
+
+  /* ---------- AI sentences from a sentence-bank topic ---------- */
+  var AI_SENT_SCHEMA={type:'OBJECT',properties:{sentences:{type:'ARRAY',items:{
+    type:'OBJECT',properties:{en:{type:'STRING'},bn:{type:'STRING'}},required:['en','bn']
+  }}},required:['sentences']};
+
+  function aiSentenceRequest(topic,samples){
+    return {
+      kind:'sentences',
+      system:'You write natural everyday English sentences with accurate Bangla translations for Bengali learners.',
+      user:'Topic: '+topic+'. Example sentences in this style: '+samples+'. Write 8 NEW short sentences (maximum 14 words each) on this topic for A2–B2 learners. Keep them practical and varied. Give a natural Bangla translation for each.',
+      schema:AI_SENT_SCHEMA
+    };
+  }
+  function aiSentences(cat,enTitle,outEl,btn){
+    var key=aiGetKey();
+    if(!key){
+      var sm=document.getElementById('aiSentModal'); if(sm)sm.classList.add('hidden');
+      aiOpen();
+      aiStatus(T('আগে আপনার Gemini API key দিন — তারপর এখানে AI বাক্য তৈরি হবে.','Add your Gemini API key first — then AI sentences will appear here.'),'bad');
+      return;
+    }
+    var samples=cat.items.slice(0,4).map(function(s){return s.en;}).join(' | ');
+    var topic=(enTitle||cat.title)+' ('+cat.title+')';
+    outEl.innerHTML='<div class="ai-load"><div class="aispin"></div><b>'+T('Gemini বাক্য লিখছে…','Gemini is writing sentences…')+'</b><p>'+T('১০-২০ সেকেন্ড লাগতে পারে.','This can take 10–20 seconds.')+'</p></div>';
+    btn.disabled=true;
+    aiAsk(key,aiSentenceRequest(topic,samples)).then(function(text){
+      var obj;
+      try{ obj=aiParseJson(text); }catch(e){ throw new Error(T('AI-এর উত্তর পড়া গেল না. আবার চেষ্টা করুন.','Could not read the AI response. Try again.')); }
+      var list=((obj&&obj.sentences)||[]).filter(function(s){return s&&s.en;}).slice(0,10);
+      if(!list.length)throw new Error(T('AI কোনো বাক্য দেয়নি. আবার চেষ্টা করুন.','The AI returned no sentences. Try again.'));
+      aiSaveEntry('sentences',enTitle||cat.title,null,{sentences:list});
+      outEl.innerHTML='<div class="sectitle" style="margin:14px 0 8px">'+T('AI-এর নতুন বাক্য · ','New AI sentences · ')+esc(enTitle||cat.title)+'</div>'+
+        '<div class="exgrid" style="grid-template-columns:1fr">'+list.map(function(s){
+          return '<div class="ex"><div class="en">'+esc(s.en)+' '+ttsBtn(s.en)+'</div>'+(ENonly()?'':'<div class="bn">'+esc(s.bn||'')+'</div>')+'</div>';
+        }).join('')+'</div>';
+      showToast(T('নতুন বাক্য তৈরি হয়েছে','New sentences ready'));
+    }).catch(function(err){
+      outEl.innerHTML='<div class="notecard" style="color:var(--wrong)">'+esc(aiErrText(err))+'</div>';
+    }).then(function(){ btn.disabled=false; });
+  }
+
+  /* ---------- AI dialogue from a sentence-bank topic ---------- */
+  var AI_CONVO_SCHEMA={type:'OBJECT',properties:{title:{type:'STRING'},lines:{type:'ARRAY',items:{
+    type:'OBJECT',properties:{sp:{type:'STRING'},en:{type:'STRING'},bn:{type:'STRING'}},required:['sp','en','bn']
+  }}},required:['title','lines']};
+
+  function aiConversation(cat,enTitle,outEl,btn){
+    var key=aiGetKey();
+    if(!key){
+      var sm=document.getElementById('aiSentModal'); if(sm)sm.classList.add('hidden');
+      aiOpen();
+      aiStatus(T('আগে আপনার Gemini API key দিন — তারপর এখানে AI সংলাপ তৈরি হবে.','Add your Gemini API key first — then AI conversations will appear here.'),'bad');
+      return;
+    }
+    var samples=cat.items.slice(0,3).map(function(s){return s.en;}).join(' | ');
+    var topic=(enTitle||cat.title)+' ('+cat.title+')';
+    var req={
+      kind:'conversation',
+      system:'You write short, natural English dialogues with accurate Bangla translations for Bengali learners.',
+      user:'Write a natural 8-line everyday dialogue between two speakers A and B (four lines each) about: '+topic+'. Style examples: '+samples+'. Use simple spoken English for A2–B2 learners. Each line has speaker ("A" or "B"), English "en" and Bangla "bn". Also give a short English "title".',
+      schema:AI_CONVO_SCHEMA
+    };
+    outEl.innerHTML='<div class="ai-load"><div class="aispin"></div><b>'+T('Gemini সংলাপ লিখছে…','Gemini is writing a dialogue…')+'</b><p>'+T('১০-২০ সেকেন্ড লাগতে পারে.','This can take 10–20 seconds.')+'</p></div>';
+    btn.disabled=true;
+    aiAsk(key,req).then(function(text){
+      var obj;
+      try{ obj=aiParseJson(text); }catch(e){ throw new Error(T('AI-এর উত্তর পড়া গেল না. আবার চেষ্টা করুন.','Could not read the AI response. Try again.')); }
+      var lines=((obj&&obj.lines)||[]).filter(function(l){return l&&l.en;}).slice(0,12);
+      if(lines.length<4)throw new Error(T('AI যথেষ্ট সংলাপ দেয়নি. আবার চেষ্টা করুন.','The AI returned too few lines. Try again.'));
+      aiSaveEntry('conversation',obj.title||enTitle||cat.title,null,{title:obj.title||enTitle||cat.title,lines:lines});
+      outEl.innerHTML='<div class="sectitle" style="margin:14px 0 8px">'+esc(obj.title||enTitle||cat.title)+'</div>'+
+        '<button class="btn ghost small" type="button" id="aiCvPlay">'+IC('speaker')+' '+T('পুরোটা শুনুন','Play all')+'</button>'+
+        '<div class="exgrid" style="grid-template-columns:1fr;margin-top:10px">'+lines.map(function(l){
+          return '<div class="ex"><div class="en"><b>'+esc(l.sp||'A')+':</b> '+esc(l.en)+' '+ttsBtn(l.en)+'</div>'+(ENonly()?'':'<div class="bn">'+esc(l.bn||'')+'</div>')+'</div>';
+        }).join('')+'</div>';
+      var play=document.getElementById('aiCvPlay');
+      if(play)play.onclick=function(){
+        var i=0;
+        (function seq(){ if(i>=lines.length)return; speak(lines[i].en); i++; setTimeout(seq,Math.max(1700,lines[i-1].en.length*70)); })();
+      };
+      showToast(T('নতুন সংলাপ তৈরি হয়েছে','New conversation ready'));
+    }).catch(function(err){
+      outEl.innerHTML='<div class="notecard" style="color:var(--wrong)">'+esc(aiErrText(err))+'</div>';
+    }).then(function(){ btn.disabled=false; });
+  }
+
   var CONVOS=(window.STUDY_DATA&&window.STUDY_DATA.convos)||[];
   var SENTS=(window.STUDY_DATA&&window.STUDY_DATA.sentences&&window.STUDY_DATA.sentences.cats)||[];
+  var SC_EN=['Introductions','Politeness','Shopping','Directions & travel','Food & restaurant','Asking for help','Opinions & feelings','Time & plans','Phone & messages','Emergencies'];
   var cb=document.getElementById("convoBtn"); if(cb)cb.onclick=openConvos;
   var sb=document.getElementById("sentBtn"); if(sb)sb.onclick=openSents;
+
+  /* ---------- irregular verbs reference ---------- */
+  function openIrregular(){
+    var v=engineView(); var q="";
+    function row(r){
+      var say=r.b+", "+r.p+", "+r.pp;
+      return '<button type="button" class="irrow" data-say="'+esc(say).replace(/"/g,"&quot;")+'" aria-label="'+esc(say).replace(/"/g,"&quot;")+'">'+
+        '<span class="irb">'+esc(r.b)+'</span>'+
+        '<span class="irp">'+esc(r.p)+'</span>'+
+        '<span class="irpp">'+esc(r.pp)+'</span>'+
+        '<svg class=ico aria-hidden="true"><use href=#i-speaker></use></svg>'+
+        (r.bn?'<span class="irbn">'+esc(r.bn)+'</span>':'')+'</button>';
+    }
+    function render(){
+      var needle=q.trim().toLowerCase();
+      var list=needle?IRR.filter(function(r){
+        return r.b.toLowerCase().indexOf(needle)>=0||r.p.toLowerCase().indexOf(needle)>=0||r.pp.toLowerCase().indexOf(needle)>=0||(r.bn||'').indexOf(q.trim())>=0;
+      }):IRR;
+      var box=document.getElementById("irrList"); if(!box)return;
+      box.innerHTML=list.length?list.map(row).join(""):
+        '<div class="irnone">'+T('কোনো ক্রিয়া পাওয়া যায়নি.','No verb found.')+'</div>';
+      document.getElementById("irrCount").textContent=list.length+" / "+IRR.length;
+    }
+    v.innerHTML='<div class="drillbox" style="text-align:left;max-width:680px">'+
+      '<div class="drillmeta">'+T('অনিয়মিত ক্রিয়া','Irregular verbs')+' · '+IRR.length+'</div>'+
+      '<h3 style="margin:6px 0 2px">'+T('Irregular Verbs','Irregular Verbs')+'</h3>'+
+      '<p class="drillmeta" style="margin:0 0 10px">'+T('V1 বেস · V2 past · V3 past participle — ট্যাপ করে তিনটি রূপ শুনুন.','V1 base · V2 past · V3 past participle — tap a row to hear all three.')+'</p>'+
+      '<div class="searchbox irsearch" role="search">'+
+        '<svg class=ico aria-hidden="true"><use href=#i-search></use></svg>'+
+        '<input class="search" id="irrSearch" type="text" placeholder="'+T('ক্রিয়া খুঁজুন...','Search a verb...')+'" aria-label="'+T('ক্রিয়া খুঁজুন','Search irregular verbs')+'" autocomplete="off" autocapitalize="none" spellcheck="false">'+
+      '</div>'+
+      '<div class="irhead"><span>V1</span><span>V2</span><span>V3</span><span></span></div>'+
+      '<div id="irrList"></div>'+
+      '<p class="ircount" id="irrCount"></p>'+
+      '<p class="irnote">'+T('একই ক্রিয়ার দুই রূপ থাকলে দুটোই ব্যবহারযোগ্য (যেমন burnt / burned)।','Where a verb has two forms, both are correct (e.g. burnt / burned).')+'</p>'+
+      '<div style="margin-top:14px"><button class="btn ghost" id="irrExit">'+T('প্র্যাকটিসে ফিরি','Back to Practice')+'</button></div>'+
+    '</div>';
+    render();
+    document.getElementById("irrSearch").addEventListener("input",function(){ q=this.value; render(); });
+    document.getElementById("irrList").addEventListener("click",function(e){
+      var b=e.target.closest?e.target.closest(".irrow"):null;
+      if(b)speak(b.getAttribute("data-say"));
+    });
+    document.getElementById("irrExit").onclick=function(){history.back();};
+  }
+  var irb=document.getElementById("irrBtn"); if(irb)irb.onclick=openIrregular;
+
+  /* ---------- AI sentences / dialogue sheet (Practice → next to AI questions) ---------- */
+  var sentTopic=0, sentKind='sent';
+  function buildSentTopics(){
+    var wrap=document.getElementById('aiSentTopics'); if(!wrap)return;
+    wrap.innerHTML=SENTS.map(function(c,i){
+      var lbl=ENonly()?(SC_EN[i]||c.title):c.title;
+      return '<button type="button" class="aichip'+(i===sentTopic?' on':'')+'" data-top="'+i+'" aria-pressed="'+(i===sentTopic?'true':'false')+'">'+esc(lbl)+'</button>';
+    }).join('');
+  }
+  function sentKindCopy(k){
+    if(k==='convo')return {
+      title:T('AI সংলাপ','AI conversation'),
+      sub:T('Sentence Bank থেকে একটি বিষয় বেছে নিন — AI একটি সংলাপ লিখবে.','Pick a Sentence Bank topic — the AI will write a dialogue.'),
+      go:T('সংলাপ তৈরি করুন','Generate dialogue')
+    };
+    return {
+      title:T('AI বাক্য','AI sentences'),
+      sub:T('Sentence Bank থেকে একটি বিষয় বেছে নিন.','Pick a Sentence Bank topic.'),
+      go:T('বাক্য তৈরি করুন','Generate sentences')
+    };
+  }
+  function syncSentKind(){
+    var c=sentKindCopy(sentKind);
+    document.getElementById('aiSentTitle').textContent=c.title;
+    document.getElementById('aiSentSub2').textContent=c.sub;
+    document.getElementById('aiSentGoLbl').textContent=c.go;
+    Array.prototype.forEach.call(document.querySelectorAll('#aiSentKind button'),function(b){
+      var on=b.getAttribute('data-k')===sentKind;
+      b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  function openAiSent(kind){
+    if(!SENTS.length)return;
+    sentKind=(kind==='convo')?'convo':'sent';
+    sentTopic=0; buildSentTopics(); syncSentKind();
+    document.getElementById('aiSentOut').innerHTML='';
+    var st=document.getElementById('aiSentStatus'); st.className='aistatus'; st.textContent='';
+    document.getElementById('aiSentModal').classList.remove('hidden');
+  }
+  function closeAiSent(){ document.getElementById('aiSentModal').classList.add('hidden'); }
+  (function(){
+    var b=document.getElementById('aiSentBtn'); if(b)b.onclick=function(){openAiSent('sent');};
+    var c=document.getElementById('aiConvoBtn'); if(c)c.onclick=function(){openAiSent('convo');};
+    document.getElementById('aiSentClose').onclick=closeAiSent;
+    var m=document.getElementById('aiSentModal');
+    m.addEventListener('click',function(e){ if(e.target===m)closeAiSent(); });
+    document.getElementById('aiSentKind').addEventListener('click',function(e){
+      var chip=e.target.closest?e.target.closest('button[data-k]'):null; if(!chip)return;
+      sentKind=chip.getAttribute('data-k'); syncSentKind();
+      document.getElementById('aiSentOut').innerHTML='';
+    });
+    document.getElementById('aiSentTopics').addEventListener('click',function(e){
+      var chip=e.target.closest?e.target.closest('button[data-top]'):null; if(!chip)return;
+      sentTopic=+chip.getAttribute('data-top'); buildSentTopics();
+      document.getElementById('aiSentOut').innerHTML='';
+    });
+    document.getElementById('aiSentGo').onclick=function(){
+      if(!SENTS.length)return;
+      var cat=SENTS[sentTopic], en=SC_EN[sentTopic]||cat.title;
+      if(sentKind==='convo')aiConversation(cat,en,document.getElementById('aiSentOut'),this);
+      else aiSentences(cat,en,document.getElementById('aiSentOut'),this);
+    };
+  })();
+
+  /* ---------- saved AI sets (open without the internet) ---------- */
+  var SAVED_KIND_LABEL={quiz:['প্রশ্ন','Questions'],speaking:['Speaking','Speaking'],writing:['Writing','Writing'],
+    sentences:['বাক্য','Sentences'],conversation:['সংলাপ','Dialogue']};
+  function savedKindLabel(k){ var x=SAVED_KIND_LABEL[k]||['AI','AI']; return T(x[0],x[1]); }
+  function renderSavedList(){
+    var el=document.getElementById('aiSavedList'); if(!el)return;
+    var a=aiSavedLoad();
+    if(!a.length){
+      el.innerHTML='<div class="savedempty">'+T('এখনো কিছু সেভ হয়নি. প্রশ্ন, বাক্য বা সংলাপ তৈরি করলে এখানে জমা হবে.','Nothing saved yet. Generated questions, sentences and dialogues will appear here.')+'</div>';
+      return;
+    }
+    el.innerHTML=a.map(function(it){
+      return '<div class="savedrow"><button type="button" class="savedopen" data-open="'+esc(it.id)+'">'+
+        '<span class="savedkind">'+esc(savedKindLabel(it.kind))+'</span>'+
+        '<span class="savedtitle">'+esc(it.title||'')+'</span>'+
+        '<span class="saveddate">'+esc(it.date||'')+'</span></button>'+
+        '<button type="button" class="saveddel" data-del="'+esc(it.id)+'" aria-label="'+T('মুছুন','Delete')+'">×</button></div>';
+    }).join('');
+  }
+  function openSaved(){
+    renderSavedList();
+    document.getElementById('aiSavedModal').classList.remove('hidden');
+    aiSavedSyncCount();
+  }
+  function closeSaved(){ document.getElementById('aiSavedModal').classList.add('hidden'); }
+  function savedShell(title,meta,body){
+    var v=aiResultView();
+    v.innerHTML='<div class="drillbox" style="text-align:left;max-width:680px">'+
+      '<div class="drillmeta">'+esc(meta)+'</div><h3 style="margin:6px 0 10px">'+esc(title)+'</h3>'+body+
+      '<div style="margin-top:14px"><button class="btn ghost" id="svBack">← '+T('ফিরে যাই','Back')+'</button></div></div>';
+    document.getElementById('svBack').onclick=function(){history.back();};
+  }
+  function showSavedSentences(it){
+    savedShell(it.title,T('সেভ করা বাক্য','Saved sentences'),
+      '<div class="exgrid" style="grid-template-columns:1fr">'+it.data.sentences.map(function(s){
+        return '<div class="ex"><div class="en">'+esc(s.en)+' '+ttsBtn(s.en)+'</div>'+(ENonly()?'':'<div class="bn">'+esc(s.bn||'')+'</div>')+'</div>';
+      }).join('')+'</div>');
+  }
+  function showSavedConvo(it){
+    var lines=(it.data&&it.data.lines)||[];
+    savedShell((it.data&&it.data.title)||it.title,T('সেভ করা সংলাপ','Saved dialogue'),
+      '<button class="btn ghost small" type="button" id="svPlay">'+IC('speaker')+' '+T('পুরোটা শুনুন','Play all')+'</button>'+
+      '<div class="exgrid" style="grid-template-columns:1fr;margin-top:10px">'+lines.map(function(l){
+        return '<div class="ex"><div class="en"><b>'+esc(l.sp||'A')+':</b> '+esc(l.en)+' '+ttsBtn(l.en)+'</div>'+(ENonly()?'':'<div class="bn">'+esc(l.bn||'')+'</div>')+'</div>';
+      }).join('')+'</div>');
+    var play=document.getElementById('svPlay');
+    if(play)play.onclick=function(){
+      var i=0;
+      (function seq(){ if(i>=lines.length)return; speak(lines[i].en); i++; setTimeout(seq,Math.max(1700,lines[i-1].en.length*70)); })();
+    };
+  }
+  function openSavedItem(it){
+    closeSaved();
+    if(it.kind==='sentences')return showSavedSentences(it);
+    if(it.kind==='conversation')return showSavedConvo(it);
+    var req=it.req||{kind:it.kind,label:it.title};
+    if(it.kind==='quiz')aiShowQuiz(it.data,req);
+    else if(it.kind==='speaking')aiShowSpeaking(it.data);
+    else if(it.kind==='writing')aiShowWriting(it.data);
+  }
+  (function(){
+    var b=document.getElementById('aiSavedBtn'); if(b)b.onclick=openSaved;
+    document.getElementById('aiSavedClose').onclick=closeSaved;
+    var m=document.getElementById('aiSavedModal');
+    m.addEventListener('click',function(e){ if(e.target===m)closeSaved(); });
+    document.getElementById('aiSavedList').addEventListener('click',function(e){
+      var del=e.target.closest?e.target.closest('[data-del]'):null;
+      if(del){ aiSavedRemove(del.getAttribute('data-del')); renderSavedList(); return; }
+      var op=e.target.closest?e.target.closest('[data-open]'):null;
+      if(!op)return;
+      var id=op.getAttribute('data-open');
+      var it=aiSavedLoad().filter(function(x){return x.id===id;})[0];
+      if(it)openSavedItem(it);
+    });
+    aiSavedSyncCount();
+  })();
 
   function openConvos(){
     var v=engineView(); var idx=0;
@@ -1897,7 +3039,7 @@
   }
 
   function openSents(){
-    var v=engineView(); var ci=0; var SC_EN=['Introductions','Politeness','Shopping','Directions & travel','Food & restaurant','Asking for help','Opinions & feelings','Time & plans','Phone & messages','Emergencies'];
+    var v=engineView(); var ci=0;
     function show(){
       var c=SENTS[ci];
       var items=c.items.map(function(s){

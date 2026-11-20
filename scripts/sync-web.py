@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCES = ("index.html", "data.js", "diagrams.js", "dict.js", "vocab.js")
+SOURCES = ("index.html", "data.js", "diagrams.js", "dict.js", "vocab.js", "verbs.js")
 TARGETS = (
     ROOT / "android" / "app" / "src" / "main" / "assets",
     ROOT / "desktop" / "dist",
