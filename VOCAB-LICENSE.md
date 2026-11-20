@@ -48,6 +48,16 @@ Phrase entries carry a Bangla gloss only when the exact phrase exists in one of
 the dictionaries. Word-by-word guesses are deliberately not generated, because
 they are often wrong for idioms.
 
+5. Machine-assisted senses
+--------------------------
+`data/word-bank-v3.json` adds extra senses to some CEFR and AWL entries. These
+draft Bengali senses and English glosses were produced with
+`gemini-3.5-flash-lite` and are marked `"reviewed": false` in the source file.
+They are study aids rather than authoritative dictionary definitions; review
+them before commercial redistribution. The primary senses, the Oxford word and
+phrase lists, and the AWL definitions keep the sources and terms described
+above.
+
 Attribution in the app
 ----------------------
 The Words tab links to Oxford Learner's Dictionaries, the AWL, Nafisa41 and

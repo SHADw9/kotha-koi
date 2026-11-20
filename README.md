@@ -6,7 +6,7 @@ kotha-koi is a free, offline English-learning app that takes you from absolute
 beginner (A1) to advanced (C2) and IELTS 7.5+. It ships with **119 units**,
 **1,428 practice questions**, an interview drill with model answers, listening
 practice, a **103,646-word English–Bangla dictionary**, a **5,524-word CEFR +
-IELTS word bank**, and a calm Material interface with five hand-picked colour
+IELTS word bank**, and a calm Material interface with eight hand-picked colour
 themes and a floating dock — all working without an internet connection.
 
 > Independent self-study tool. Not affiliated with any exam board, language
@@ -24,20 +24,23 @@ themes and a floating dock — all working without an internet connection.
 | **Interview drill** | Practice common interview questions with model answers. |
 | **Listening & pronunciation** | Platform text-to-speech plus focused pronunciation drills. |
 | **Offline dictionary** | 103,646 English words with Bangla meanings, instant search, word of the day and recent lookups. |
-| **CEFR → IELTS word bank** | 4,954 Oxford 3000/5000 words (A1–C1), the 570-word Academic Word List and 2,632 phrases — with learned ticks, progress and 10-word flashcard sessions. |
+| **CEFR → IELTS word bank** | 4,954 Oxford 3000/5000 words (A1–C1), the 570-word Academic Word List and 2,632 phrases — with multiple senses, English glosses, learned ticks, progress and 10-word flashcard sessions. |
 | **Progress & streaks** | Daily ticks, scores, completion and a 14-day view. |
-| **Five themes** | Paper, Night, Sepia, Bagan and Ink — plus an Auto mode. |
+| **Eight themes** | Vermilion, Paper, Night, Cobalt, Sepia, Bagan, Rose and Ink — plus an Auto mode. |
 | **No account needed** | Open the app and start. |
 
 ### Themes
 
 | Theme | Mood |
 |---|---|
+| **Vermilion** | The default: pure white, near-black and a deep editorial red. |
 | **Paper** | Warm oat paper, deep green ink and terracotta. |
 | **Night** | Warm charcoal with mint and amber. |
+| **Cobalt** | Cool white, clear blue and a teal accent. |
 | **Sepia** | Old book pages, brown ink, quiet green. |
 | **Bagan** | Soft sage and forest green. |
-| **Ink** | High-contrast black, cream and vermilion. |
+| **Rose** | Soft blush, deep burgundy and warm clay. |
+| **Ink** | High-contrast warm white, black and vermilion. |
 | **Auto** | Follows your device's light/dark setting. |
 
 Open the palette button in the top bar (or **Progress → About**) to switch.
@@ -196,12 +199,15 @@ publishing to a store or running live ads.
 - **Storage:** `localStorage` on the device — no server, accounts, or cloud sync.
 - **Listening:** the platform's text-to-speech engine.
 
-The dictionary and word bank are rebuilt from their upstream datasets with:
+The dictionary is rebuilt from its upstream dataset, and the word bank is
+compiled from the editable `data/word-bank-v3.json` (multi-sense entries with
+Bengali and English glosses):
 
 ```bash
-python scripts/build-dict.py          # writes web/dict.js
-python scripts/build-vocab.py         # writes web/vocab.js
-python scripts/sync-web.py            # copies all assets to Android + desktop
+python scripts/build-dict.py                 # writes web/dict.js
+python scripts/build-vocab.py                # writes web/vocab.js from data/word-bank-v3.json
+python scripts/build-vocab.py --legacy       # old upstream Oxford/AWL rebuild
+python scripts/sync-web.py                   # copies all assets to Android + desktop
 ```
 
 ---
